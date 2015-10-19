@@ -1,0 +1,27 @@
+CREATE TABLE IF NOT EXISTS TEST_TABLE(COL1 INTEGER NOT NULL, COL2 CHAR(25), COL3 VARCHAR(25) NOT NULL, COL4 DATE, PRIMARY KEY (COL1));
+
+CREATE ALIAS IF NOT EXISTS get_test FOR "org.breitling.dragon.framework.utils.Functions.getTest";
+
+CREATE TABLE TREE_NODE_T(
+       NODE_ID int NOT NULL,
+       TREE_TYPE_ID int NULL,
+       NODE_DESC varchar(2048) NULL,
+       NODE_TYPE_ID int NULL,
+       REF_ID int NULL,
+       NODE_PATH varchar(max) NULL,
+       CLIENT_CD char(20) NULL,
+       DISPLAY_NODE bit NULL,
+       OPEN_TYPE int NULL,
+       GLOBAL_FLAG bit NULL,
+       SORT_ORDER int NOT NULL,
+       SRC varchar(100) NULL,
+       STATUS_FLAG smallint NOT NULL
+);
+
+CREATE TABLE site_category_type(
+       SITECATEGORYTYPEID smallint(6) NOT NULL AUTO_INCREMENT,
+       SITETYPEID smallint(6) DEFAULT NULL,
+       SITECATEGORYID int(11) NOT NULL DEFAULT '0',
+       CREATEDATE timestamp NOT NULL,
+       PRIMARY KEY (SITECATEGORYTYPEID)
+);

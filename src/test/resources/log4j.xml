@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE log4j:configuration SYSTEM "log4j.dtd">
+<log4j:configuration xmlns:log4j="http://jakarta.apache.org/log4j/">
+
+	<appender name="Main" class="org.apache.log4j.ConsoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%5p [%d] [%t] [%C{1}] - %m%n"/>
+	    </layout>
+	    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+	        <param name="LevelMin" value="trace"/>
+	        <param name="LevelMax" value="warn"/>
+	    </filter>
+	</appender>
+	
+	<appender name="Error" class="org.apache.log4j.ConsoleAppender">
+	    <layout class="org.apache.log4j.PatternLayout">
+	        <param name="ConversionPattern" value="%5p [%d] [%t] [%C{1}] - %m%n"/>
+	    </layout>
+	    <filter class="org.apache.log4j.varia.LevelRangeFilter">
+	        <param name="LevelMin" value="error"/>
+	        <param name="LevelMax" value="fatal"/>
+	    </filter>
+	</appender>
+	
+	<logger name="org.springframework">
+	    <level value="error"/>
+	    <appender-ref ref="Error"/>
+	</logger>
+	
+	<root>
+	   <level value="info"/>
+	   <appender-ref ref="Main"/>  
+	   <appender-ref ref="Error"/>
+	</root>
+
+</log4j:configuration>
