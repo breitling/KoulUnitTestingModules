@@ -20,19 +20,25 @@ import org.breitling.dragon.framework.util.FunctionSupport;
 @Category(org.breitling.dragon.framework.category.BasicTests.class)
 public class TestXmlDataSet extends SimpleTest
 {
-	@Test
-	public void testReadXML_BasicDataSet_ResultSet() throws SQLException, Exception
-	{
-		ResultSet rs = FunctionSupport.getResultSetFromXml("src/test/datasets/xmldataset.xml");
-		
-		assertNotNull(rs);		
-		assertNotNull(rs.next());
-		assertEquals(1, rs.getInt(1));
-		assertEquals("TST", rs.getString(2));
-		assertEquals("This is a test", rs.getString(3));
-		assertNotNull(rs.next());
-		assertEquals(2, rs.getInt(1));
-		assertEquals("BOB", rs.getString(2));
-		assertEquals("This is another test", rs.getString(3));
-	}
+    @Test
+    @SuppressWarnings("deprecation")
+    public void testReadXML_BasicDataSet_ResultSet() throws SQLException, Exception
+    {
+        ResultSet rs = FunctionSupport.getResultSetFromXml("classpath:/xmldataset.xml");
+        
+        assertNotNull(rs);        
+        assertNotNull(rs.next());
+        assertEquals(1, rs.getInt(1));
+        assertEquals("TST", rs.getString(2));
+        assertEquals("This is a test", rs.getString(3));
+        assertNotNull(rs.next());
+        assertEquals(2, rs.getInt(1));
+        assertEquals("BOB", rs.getString(2));
+        assertEquals("This is another test", rs.getString(3));
+        assertNotNull(rs.next());
+        assertEquals(12, rs.getInt(1));
+        assertEquals("SDF", rs.getString(2));
+        assertEquals("This is a DATE test", rs.getString(3));
+        assertEquals(new Timestamp(2015-1900,OCTOBER,27,10,27,30,0), rs.getTimestamp(4));
+    }
 }
