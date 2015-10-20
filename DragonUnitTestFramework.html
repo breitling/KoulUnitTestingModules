@@ -6070,8 +6070,8 @@ Error message and password prompt
 <div modified="20151020005133487" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div modified="20151020011612134" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Open</pre>
+<div modified="20151020123351576" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/More</pre>
 </div>
 <div list="DragonUnitTestFramework" title="$:/StoryList">
 <pre></pre>
@@ -6825,8 +6825,26 @@ public class MyDAOTests extends TestWithClassInit
 <div created="20151020003025697" modified="20151020003429860" tags="" title="Topics">
 <pre>&lt;$list filter=&quot;[tag[topic]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
 </div>
-<div created="20151020002838734" modified="20151020011549056" tags="topic" title="Using the Framework Without Spring">
-<pre>TBW</pre>
+<div created="20151020002838734" modified="20151020123726638" tags="topic" title="Using the Framework Without Spring">
+<pre>```
+    private static DataSource dataSource;
+    @BeforeClass
+    public static void testSetup()
+    {
+        TestDb.addSchema(&quot;classpath:/base.schema&quot;);
+        JdbcDataSource ds = new JdbcDataSource();
+        ds.setURL(&quot;jdbc:h2:mem:dragon;MODE=MySQL&quot;);
+        ds.setUser(&quot;sa&quot;);
+        ds.setPassword(&quot;&quot;);
+        dataSource = ds;
+    }
+    @Before
+    public void testCaseSetup()
+    {
+        super.testCaseSetup(dataSource);
+    }
+```
+</pre>
 </div>
 
 </div>
