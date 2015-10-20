@@ -279,19 +279,29 @@ Error message and password prompt
 
 <li>Example - Multiple Datasets</li>
 
+<li>Example - Qualified Names</li>
+
+<li>Example - Stored Procedures</li>
+
 <li>Example 1</li>
 
 <li>H2</li>
 
-<li>How to use the framework?</li>
+<li>How to use the framework</li>
 
 <li>Junit</li>
 
 <li>More Examples</li>
 
+<li>QualifiedNames.schema</li>
+
 <li>Test Class</li>
 
 <li>topic</li>
+
+<li>Topics</li>
+
+<li>Using the Framework Without Spring</li>
 
 </ul>
 </p>
@@ -6057,13 +6067,13 @@ Error message and password prompt
 <div modified="20151019155309621" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Appearance</pre>
 </div>
-<div modified="20151019181616513" title="$:/state/tab/moresidebar-401116514">
+<div modified="20151020005133487" title="$:/state/tab/moresidebar-401116514">
 <pre>$:/core/ui/MoreSideBar/All</pre>
 </div>
-<div modified="20151019183158309" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/More</pre>
+<div modified="20151020011612134" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/Open</pre>
 </div>
-<div list="DragonUnitTestFramework [[More Examples]]" title="$:/StoryList">
+<div list="DragonUnitTestFramework" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20151019161248334" modified="20151019161842442" tags="$:/tags/Stylesheet" title="$:/StyleSheet">
@@ -6359,8 +6369,8 @@ At this point it is largely for experimentation by @zooko.
 <div created="20151019155243405" modified="20151019155243405" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/http://tiddlywiki.com/library/v5.1.9/index.html" url="http://tiddlywiki.com/library/v5.1.9/index.html">
 <pre>loaded</pre>
 </div>
-<div modified="20151019175929535" title="$:/theme">
-<pre>$:/themes/tiddlywiki/vanilla</pre>
+<div modified="20151019200549802" title="$:/theme">
+<pre>$:/themes/tiddlywiki/snowwhite</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/snowwhite" description="Centralises the story river, experimental" name="Centralised" plugin-type="theme" title="$:/themes/tiddlywiki/centralised" type="application/json" version="5.1.9">
 <pre>{
@@ -6501,7 +6511,7 @@ At this point it is largely for experimentation by @zooko.
 <div created="20151019160020418" modified="20151019160022521" title="DBUnit">
 <pre>http://dbunit.sourceforge.net/</pre>
 </div>
-<div created="20151019155401989" modified="20151019191857392" title="DragonUnitTestFramework">
+<div created="20151019155401989" modified="20151020010200363" title="DragonUnitTestFramework">
 <pre>The Dragon Unit Test Framework leverages the functionality of [[Junit]], [[DBUnit]] and the [[H2]] database to allow a programmer to write unit tests for classes that depend on databases. The real database is replaced with an H2 in-memory equivalent that allows test cases to be written that have no external dependencies.  The framework also supports various other functionality that makes writing test cases easier and cleaner.
 
 !.bannerStyle &amp;nbsp;Features
@@ -6518,7 +6528,7 @@ These are the main features of the framework:
 # Simple DB operations (executing queries with various return types: Integer, String, Timestamp, List, etc.).
 # JDBC support for several types of row mappers (Integer, String, Timestamp, reusable, generic ~RowMapper interface).
 # Support multiple schemas in one database via qualified names.
-# Support for simple validation of database.
+# Support for simple validation of a database.
 # Support for Java methods that implement your stored procedures (H2 support stored procedures with Java methods).
 # Support for many common DB functions that keeps your code cleaner (closing result sets, closing statements, commits, rollbacks, injecting objects into your test cases to overcome AOP issues, testing private methods in your Java classes).
 # Support assertions that contain sub-strings (assertContains).
@@ -6560,7 +6570,8 @@ The Spring-Framework dependencies is only required if you use the AOP unwrapping
 
 !.bannerStyle &amp;nbsp;Next
 
-[[How to use the framework?]]</pre>
+[[How to use the framework]]&lt;br&gt;
+[[Using the Framework Without Spring]]</pre>
 </div>
 <div color="#0080c0" created="20151019181550387" modified="20151019181550387" title="example">
 <pre></pre>
@@ -6619,13 +6630,93 @@ public class TestMultipleDatasets extends TestWithClassInit
 
 The //addAnAdditionalDataset(...)// method can be called as many times as the programmer needs.</pre>
 </div>
+<div created="20151019203626377" modified="20151019204747787" tags="example" title="Example - Qualified Names">
+<pre>You will need to define two schema when you add schemas to your test class ([[QualifiedNames.schema]]).
+
+The data set:
+
+```
+&lt;!-- SCHEMA NAMES MUST BE IN CAPS --&gt;
+&lt;dataset&gt;
+    &lt;DB1.test_table_1 col1=&quot;1&quot; col2=&quot;this&quot;  col3=&quot;this is it&quot;/&gt;
+    &lt;DB1.test_table_1 col1=&quot;2&quot; col2=&quot;those&quot; col3=&quot;those are it&quot;/&gt;
+
+    &lt;DB2.test_table_2 col1=&quot;13&quot; col2=&quot;crap&quot;/&gt;
+&lt;/dataset&gt;
+```
+
+The code:
+
+```
+@RunWith(SpringJUnit4ClassRunner.class)
+@ContextConfiguration(locations = {&quot;classpath:context.xml&quot;})
+public class TestQualifiedNames extends TestWithClassInit
+{
+    @Autowired
+    private DataSource dataSource;
+    
+    @BeforeClass
+    public static void testSetUp()
+    {
+    	TestQualifiedNames.addSchema(&quot;classpath:/QualifiedNames.schema&quot;);
+    	TestQualifiedNames.testSetup(&quot;classpath:/QualifiedNames.xml&quot;);
+    }
+    
+    @Before
+    public void testCaseSetup()
+    {
+    	super.setSchema(&quot;public&quot;);
+    	super.setUseQualifiedNames(Boolean.TRUE);
+        super.testCaseSetup(dataSource);
+    }
+
+```
+
+The schema names in the data set must be in all caps (DBUnit thing!) and then you must call the //setUseQualifiedNames(...)// method before each test case is run to turn set the ON.</pre>
+</div>
+<div created="20151019204943853" modified="20151019210553069" tags="example" title="Example - Stored Procedures">
+<pre>In your schema definition you will need to alias a stored procedure to a Java function.
+
+```
+CREATE ALIAS IF NOT EXISTS get_test FOR &quot;org.breitling.dragon.framework.utils.Functions.getTest&quot;;
+```
+
+In you test case you can call the stored procedure yourself:
+
+```
+    @Test
+    public void testSimpleDataBaseTest_storedProcedure_Success() throws Exception
+    {
+        .
+        .
+        CallableStatement cStmt = Utility.getInstance().getConnection()
+                                         .prepareCall(&quot;{call public.get_test(?)}&quot;);
+        cStmt.setInt(1, 4);
+        cStmt.execute();
+        ResultSet rs = cStmt.getResultSet();
+        .
+        .
+    }
+
+```
+
+In //org.breitling.dragon.framework.utils.Functions.java// you define the function:
+
+```
+    public static ResultSet getTest(int id)
+    {
+        .
+        .        
+    }
+```</pre>
+</div>
 <div created="20151019181417908" modified="20151019181507722" tags="example" title="Example 1">
 <pre></pre>
 </div>
 <div created="20151019155940442" modified="20151019155951441" title="H2">
 <pre>http://www.h2database.com/html/main.html</pre>
 </div>
-<div created="20151019165638213" modified="20151019182558451" tags="topic" title="How to use the framework?">
+<div created="20151019165638213" modified="20151020010407186" tags="topic" title="How to use the framework">
 <pre>The simplest way to use the framework  if you are going to use the DB testing features is to use the Spring-Framework to define a context that defines the H2 data-source and then annotate your test classes with Spring annotations:
 
 //context.xml//
@@ -6663,6 +6754,32 @@ Annotate your class with
 </div>
 <div created="20151019172613865" modified="20151019191059314" tags="topic" title="More Examples">
 <pre>&lt;$list filter=&quot;[tag[example]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
+</div>
+<div created="20151019204624566" modified="20151019204716204" tags="" title="QualifiedNames.schema">
+<pre>```
+CREATE SCHEMA IF NOT EXISTS db1;
+SET SCHEMA db1;
+CREATE TABLE IF NOT EXISTS test_table_1 (
+       COL1 INTEGER NOT NULL, 
+       COL2 CHAR(25), 
+       COL3 VARCHAR(25) NOT NULL, 
+       COL4 DATE, 
+       PRIMARY KEY (COL1)
+);
+CREATE SCHEMA IF NOT EXISTS db2;
+SET SCHEMA db2;
+CREATE TABLE IF NOT EXISTS test_table_2 (
+       COL1 INTEGER NOT NULL, 
+       COL2 VARCHAR(25) NOT NULL, 
+       PRIMARY KEY (COL1)
+);
+CREATE TABLE IF NOT EXISTS test_table_3 (
+       COL1 INTEGER NOT NULL, 
+       COL2 VARCHAR(25) NOT NULL, 
+       PRIMARY KEY (COL1)
+);
+```
+</pre>
 </div>
 <div created="20151019171804837" modified="20151019191034113" tags="example" title="Test Class">
 <pre>```
@@ -6702,8 +6819,14 @@ public class MyDAOTests extends TestWithClassInit
 
 [[More Examples]]</pre>
 </div>
-<div color="#ff0000" created="20151019181407357" modified="20151019181407357" title="topic">
+<div color="#ff0000" created="20151020005006365" modified="20151020005006365" title="topic">
 <pre></pre>
+</div>
+<div created="20151020003025697" modified="20151020003429860" tags="" title="Topics">
+<pre>&lt;$list filter=&quot;[tag[topic]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
+</div>
+<div created="20151020002838734" modified="20151020011549056" tags="topic" title="Using the Framework Without Spring">
+<pre>TBW</pre>
 </div>
 
 </div>
