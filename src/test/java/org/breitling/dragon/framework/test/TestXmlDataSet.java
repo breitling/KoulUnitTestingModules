@@ -1,19 +1,21 @@
 package org.breitling.dragon.framework.test;
 
+import static java.util.Calendar.*;
+
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 
+import org.breitling.dragon.framework.types.SimpleTest;
+import org.breitling.dragon.framework.util.FunctionSupport;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-
-import org.breitling.dragon.framework.types.SimpleTest;
-import org.breitling.dragon.framework.util.FunctionSupport;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:context.xml"})

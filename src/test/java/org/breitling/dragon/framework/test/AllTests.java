@@ -7,6 +7,7 @@ import org.junit.runners.Suite;
 @Suite.SuiteClasses({
     org.breitling.dragon.framework.test.TestAssertions.class,
     org.breitling.dragon.framework.test.TestClassInit.class,
+    org.breitling.dragon.framework.test.TestDb.class,
     org.breitling.dragon.framework.test.TestExceptions.class,
     org.breitling.dragon.framework.test.TestFunctionSupport.class,
     org.breitling.dragon.framework.test.TestMethodInit.class,
