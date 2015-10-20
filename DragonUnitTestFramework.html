@@ -275,15 +275,25 @@ Error message and password prompt
 
 <li>example</li>
 
+<li>Example - DB Support Methods</li>
+
 <li>Example - Initialize on Each Test Case</li>
 
 <li>Example - Multiple Datasets</li>
 
+<li>Example - Multiple Schema Files</li>
+
 <li>Example - Qualified Names</li>
+
+<li>Example - SQL Datasets</li>
+
+<li>Example - SQL execution</li>
 
 <li>Example - Stored Procedures</li>
 
-<li>Example 1</li>
+<li>Example - Testing Private Methods</li>
+
+<li>Example - XML Datasets</li>
 
 <li>H2</li>
 
@@ -6049,10 +6059,10 @@ Error message and password prompt
 <div created="20151019154337069" modified="20151019154341741" title="$:/SiteTitle">
 <pre>Dragon Unit Test Framework</pre>
 </div>
-<div modified="20151019161936442" title="$:/state/showeditpreview">
+<div modified="20151020184532560" title="$:/state/showeditpreview">
 <pre>no</pre>
 </div>
-<div modified="20151019180014342" title="$:/state/sidebar">
+<div modified="20151020184622454" title="$:/state/sidebar">
 <pre>yes</pre>
 </div>
 <div modified="20151019175655352" title="$:/state/tab--1963855381">
@@ -6073,7 +6083,7 @@ Error message and password prompt
 <div modified="20151020123351576" title="$:/state/tab/sidebar--1835078512">
 <pre>$:/core/ui/SideBar/More</pre>
 </div>
-<div list="DragonUnitTestFramework" title="$:/StoryList">
+<div list="[[More Examples]] DragonUnitTestFramework" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20151019161248334" modified="20151019161842442" tags="$:/tags/Stylesheet" title="$:/StyleSheet">
@@ -6576,6 +6586,28 @@ The Spring-Framework dependencies is only required if you use the AOP unwrapping
 <div color="#0080c0" created="20151019181550387" modified="20151019181550387" title="example">
 <pre></pre>
 </div>
+<div created="20151020164802701" modified="20151020182238065" tags="" title="Example - DB Support Methods">
+<pre>The //Utility// class is a singleton with several public methods that implement some often used DB functionality. This will often make your unit test case methods cleaner. The following table lists the methods:
+
+|Method|Functionality|h
+|closeQuietly(~ResultSet r)|quietly close the ~ResultSet by catching all exceptions|
+|closeQuietly(Statement s)|quietly close the SQL statement|
+|commit()|do a commit on the H2 database|
+|rollback()|do a rollback on the H2 database|
+|setAutoCommit(booean b)|set the internal connection's auto commit state|
+|getDataSource()|return the internal ~DataSource|
+|setDataSource(~DataSource d)|set the internal data source|
+|getConnection()|return the internal DB connection from the data source|
+|setup()|using the internal data source, get a DB connection and mark as initialized|
+|isInitialized()|test whether //setup()// was called|
+|tearDown()|close the internal DB connection|
+|injectObject(Object o, String n, Object v)|inject an object into a class|
+|testPrivateMethod(Object o, String n, Object...)|test a private method by calling it|
+
+The singleton is not initialized at startup. It has no data source or DB connection. If the user want to use this functionality, they are responsible for making the necessary method calls.
+
+</pre>
+</div>
 <div created="20151019184912980" modified="20151019190331494" tags="example" title="Example - Initialize on Each Test Case">
 <pre>```
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -6630,6 +6662,16 @@ public class TestMultipleDatasets extends TestWithClassInit
 
 The //addAnAdditionalDataset(...)// method can be called as many times as the programmer needs.</pre>
 </div>
+<div created="20151020161948782" modified="20151020162244459" tags="example" title="Example - Multiple Schema Files">
+<pre>```
+    @BeforeClass
+    public static void testSetup()
+    {
+        ATestClass.addSchema(&quot;classpath:/base.schema&quot;);
+        ATestClass.addSchema(&quot;classpath:/test.schema&quot;);
+    }
+```</pre>
+</div>
 <div created="20151019203626377" modified="20151019204747787" tags="example" title="Example - Qualified Names">
 <pre>You will need to define two schema when you add schemas to your test class ([[QualifiedNames.schema]]).
 
@@ -6674,6 +6716,29 @@ public class TestQualifiedNames extends TestWithClassInit
 
 The schema names in the data set must be in all caps (DBUnit thing!) and then you must call the //setUseQualifiedNames(...)// method before each test case is run to turn set the ON.</pre>
 </div>
+<div created="20151020182446936" modified="20151020182848212" tags="example" title="Example - SQL Datasets">
+<pre>With a data source and a SQL statement, return the ~ResultSet from running the SQL statement. The ~ResultSet is disconnected from the JDBC Statement object.
+
+```
+ResultSet rs = FunctionSupport.getResultSet(dataSource,&quot;SELECT * FROM table WHERE c = 3&quot;);
+```</pre>
+</div>
+<div created="20151020183002456" modified="20151020184535031" tags="example" title="Example - SQL execution">
+<pre>The test class inherits several methods from the framework that are useful for running SQL statements:
+
+|Method|Functionality|h
+|execute(String q)|execute a query that does not return anything|
+|executeQuery(String q, ~RowMapper&amp;lt;T&gt; m)|return a List of type T objects from running the query|
+|executeUpdate(String q)|execute a SQL update statement|
+|getInt(String q)|execute a query that returns an Integer|
+|getStrings(String q)|execute a query that returns a List of String objects|
+|getTimestamp(String q)|execute a query that returns a Timestamp|
+|validateDBTableName(String t)|does the PUBLIC schema have a table with the supplied name|
+|validateDBTableName(String s, String t)|does the supplied schema have a table with the supplied name|
+|getSchema()|return the internal schema name|
+|setSchema(String s)|set the internal schema name|
+</pre>
+</div>
 <div created="20151019204943853" modified="20151019210553069" tags="example" title="Example - Stored Procedures">
 <pre>In your schema definition you will need to alias a stored procedure to a Java function.
 
@@ -6710,13 +6775,40 @@ In //org.breitling.dragon.framework.utils.Functions.java// you define the functi
     }
 ```</pre>
 </div>
-<div created="20151019181417908" modified="20151019181507722" tags="example" title="Example 1">
-<pre></pre>
+<div created="20151020162431570" modified="20151020163145806" tags="example" title="Example - Testing Private Methods">
+<pre>```
+Functions functions;
+.
+.
+int value = (Integer) Utility.getInstance().testPrivateMethod(functions, &quot;add3&quot;, 1, 2, 3);
+assertEquals(6, value);
+```
+
+The object //functions// has a private method named //add3//. We can call it using the framework then do an assertion on the returned value.</pre>
+</div>
+<div created="20151020163702189" modified="20151020164545408" tags="example" title="Example - XML Datasets">
+<pre>The XML consists on a //schema// tag that defines the columns in each row of the Dataset, followed by //n// //row// tags with the actual data. The //col// attributes of the //schema// tag are the data type of the column and the size separated by a semi-colon. The //col// attributes of the //row// tag are the values.
+
+So, for example, the following XML defines the Dataset and then the code below that returns a ~ResultSet object that contains the Dataset.
+
+```
+&lt;dataset&gt;
+    &lt;schema col1=&quot;INTEGER:10&quot; col2=&quot;CHAR:3&quot; col3=&quot;VARCHAR:255&quot; col4=&quot;DATE:24&quot;/&gt;
+    &lt;row col1=&quot;1&quot; col2=&quot;TST&quot; col3=&quot;This is a test&quot; col4=&quot;NOW&quot;/&gt;
+    &lt;row col1=&quot;2&quot; col2=&quot;BOB&quot; col3=&quot;This is another test&quot; col4=&quot;NOW&quot;/&gt;
+    &lt;row col1=&quot;12&quot; col2=&quot;SDF&quot; col3=&quot;This is a DATE test&quot; col4=&quot;2015-10-27 10:27:30&quot;/&gt;
+&lt;/dataset&gt;
+```
+
+```
+ResultSet rs = FunctionSupport.getResultSetFromXml(&quot;classpath:/xmldataset.xml&quot;);
+```
+</pre>
 </div>
 <div created="20151019155940442" modified="20151019155951441" title="H2">
 <pre>http://www.h2database.com/html/main.html</pre>
 </div>
-<div created="20151019165638213" modified="20151020010407186" tags="topic" title="How to use the framework">
+<div created="20151019165638213" modified="20151020142005279" tags="topic" title="How to use the framework">
 <pre>The simplest way to use the framework  if you are going to use the DB testing features is to use the Spring-Framework to define a context that defines the H2 data-source and then annotate your test classes with Spring annotations:
 
 //context.xml//
@@ -6746,7 +6838,8 @@ Annotate your class with
 !.bannerStyle &amp;nbsp;Next
 
 [[Test Class]]&lt;br&gt;
-[[More Examples]]
+[[More Examples]]&lt;br&gt;
+Take a look at the framework's unit test sources for examples.
 </pre>
 </div>
 <div created="20151019160052467" modified="20151019160053832" title="Junit">
@@ -6825,7 +6918,7 @@ public class MyDAOTests extends TestWithClassInit
 <div created="20151020003025697" modified="20151020003429860" tags="" title="Topics">
 <pre>&lt;$list filter=&quot;[tag[topic]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
 </div>
-<div created="20151020002838734" modified="20151020123726638" tags="topic" title="Using the Framework Without Spring">
+<div created="20151020002838734" modified="20151020161721407" tags="topic" title="Using the Framework Without Spring">
 <pre>```
     private static DataSource dataSource;
     @BeforeClass
@@ -6844,7 +6937,8 @@ public class MyDAOTests extends TestWithClassInit
         super.testCaseSetup(dataSource);
     }
 ```
-</pre>
+
+See //~TestDB.java// in the projects unit tests.</pre>
 </div>
 
 </div>
