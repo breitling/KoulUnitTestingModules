@@ -26,7 +26,7 @@ import org.breitling.dragon.framework.jdbc.IntRowMapper;
 import org.breitling.dragon.framework.jdbc.RowMapper;
 import org.breitling.dragon.framework.jdbc.StringRowMapper;
 import org.breitling.dragon.framework.jdbc.TimestampRowMapper;
-import org.breitling.dragon.framework.util.Utility;
+import org.breitling.dragon.framework.util.DbUtils;
 
 
 public abstract class DataBaseTestBase extends TestBase
@@ -55,10 +55,10 @@ public abstract class DataBaseTestBase extends TestBase
 		
 		try
 		{
-            Utility.getInstance().setDataSource(dataSource);
-            Utility.getInstance().setUp();
+            DbUtils.setDataSource(dataSource);
+            DbUtils.setUp();
 
-            databaseTester = new DataSourceDatabaseTester(Utility.getInstance().getDataSource(), getSchema());            
+            databaseTester = new DataSourceDatabaseTester(DbUtils.getDataSource(), getSchema());            
             databaseTester.setOperationListener(new DataBaseTestBaseOperationalListener());
 		}
 		catch (Exception e)
@@ -102,7 +102,7 @@ public abstract class DataBaseTestBase extends TestBase
 
         try
         {
-            ps = Utility.getInstance().getConnection().createStatement();
+            ps = DbUtils.getConnection().createStatement();
             ps.executeUpdate(queryString);
         }
         catch (Exception e)
@@ -111,8 +111,8 @@ public abstract class DataBaseTestBase extends TestBase
         }
         finally
         {
-            Utility.getInstance().closeQuietly(ps);
-            Utility.getInstance().commit();
+            DbUtils.closeQuietly(ps);
+            DbUtils.commit();
         }
 	}
 	
@@ -126,7 +126,7 @@ public abstract class DataBaseTestBase extends TestBase
 		
 		try
 		{
-		    ps = Utility.getInstance().getConnection().prepareStatement(queryString);
+		    ps = DbUtils.getConnection().prepareStatement(queryString);
 		    ps.clearParameters();
 		    
 		    rs = ps.executeQuery();
@@ -141,8 +141,8 @@ public abstract class DataBaseTestBase extends TestBase
 		}
 		finally
 		{
-            Utility.getInstance().closeQuietly(rs);
-            Utility.getInstance().closeQuietly(ps);
+            DbUtils.closeQuietly(rs);
+            DbUtils.closeQuietly(ps);
 		}
 		
 		return list;
@@ -157,25 +157,25 @@ public abstract class DataBaseTestBase extends TestBase
 		
 		try
 		{
-		    sp = Utility.getInstance().getConnection().setSavepoint();
+		    sp = DbUtils.getConnection().setSavepoint();
 		    
-	        Utility.getInstance().setAutoCommit(false);	        
+	        DbUtils.setAutoCommit(false);	        
 		    
-			ps = Utility.getInstance().getConnection().createStatement();
+			ps = DbUtils.getConnection().createStatement();
 			ps.executeUpdate(queryString);
 			
-			Utility.getInstance().commit();
+			DbUtils.commit();
 		}
 		catch (Exception e)
 		{
 			LOG.error(e.toString());
-			Utility.getInstance().rollback(sp);
+			DbUtils.rollback(sp);
 			throw new RuntimeException("datebase update failed: " + e.toString());
 		}
 		finally
 		{
-		    Utility.getInstance().closeQuietly(ps);
-		    Utility.getInstance().setAutoCommit(true);
+		    DbUtils.closeQuietly(ps);
+		    DbUtils.setAutoCommit(true);
 		}
 	}
 	
@@ -236,7 +236,7 @@ public abstract class DataBaseTestBase extends TestBase
 	
 	public static void validateDB()
 	{
-		validateJUnitDB(Utility.getInstance().getConnection());
+		validateJUnitDB(DbUtils.getConnection());
 	}
 	
 	public static void validateDB(final String schemaName)
@@ -250,7 +250,7 @@ public abstract class DataBaseTestBase extends TestBase
 	        
 	    try
 	    {
-	        DatabaseMetaData md = Utility.getInstance().getConnection().getMetaData();
+	        DatabaseMetaData md = DbUtils.getConnection().getMetaData();
 	        ResultSet results = md.getSchemas();
 
 	        while(results.next())
@@ -288,7 +288,7 @@ public abstract class DataBaseTestBase extends TestBase
 	    
 	    try
 	    {
-	        DatabaseMetaData md = Utility.getInstance().getConnection().getMetaData();
+	        DatabaseMetaData md = DbUtils.getConnection().getMetaData();
 	        ResultSet rs = md.getTables(null, schemaName, "%", null);
         
 	        while(rs.next())

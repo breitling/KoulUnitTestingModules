@@ -9,7 +9,7 @@ import org.junit.runners.Suite;
     org.breitling.dragon.framework.test.TestClassInit.class,
     org.breitling.dragon.framework.test.TestDb.class,
     org.breitling.dragon.framework.test.TestExceptions.class,
-    org.breitling.dragon.framework.test.TestFunctionSupport.class,
+    org.breitling.dragon.framework.test.TestStoreProcUtils.class,
     org.breitling.dragon.framework.test.TestMethodInit.class,
     org.breitling.dragon.framework.test.TestMultipleDatasets.class,
     org.breitling.dragon.framework.test.TestQualifiedNames.class,

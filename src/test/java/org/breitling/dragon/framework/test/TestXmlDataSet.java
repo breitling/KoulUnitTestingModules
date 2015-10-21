@@ -10,7 +10,7 @@ import java.sql.SQLException;
 import java.sql.Timestamp;
 
 import org.breitling.dragon.framework.types.SimpleTest;
-import org.breitling.dragon.framework.util.FunctionSupport;
+import org.breitling.dragon.framework.util.StoredProcUtils;
 import org.junit.Test;
 import org.junit.experimental.categories.Category;
 import org.junit.runner.RunWith;
@@ -26,7 +26,7 @@ public class TestXmlDataSet extends SimpleTest
     @SuppressWarnings("deprecation")
     public void testReadXML_BasicDataSet_ResultSet() throws SQLException, Exception
     {
-        ResultSet rs = FunctionSupport.getResultSetFromXml("classpath:/xmldataset.xml");
+        ResultSet rs = StoredProcUtils.getResultSetFromXml("classpath:/xmldataset.xml");
         
         assertNotNull(rs);        
         assertNotNull(rs.next());

@@ -22,9 +22,9 @@ import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-public class FunctionSupport
+public class StoredProcUtils
 {
-    private static Logger LOG = LoggerFactory.getLogger(FunctionSupport.class);
+    private static Logger LOG = LoggerFactory.getLogger(StoredProcUtils.class);
     
     public static ResultSet getResultSet(final DataSource dataSource, final String sql)
     {
@@ -75,7 +75,7 @@ public class FunctionSupport
             Document document;
 
             if (xmlFileName.startsWith("classpath:"))
-                document = db.parse(FunctionSupport.class.getResourceAsStream(xmlFileName.substring(10)));
+                document = db.parse(StoredProcUtils.class.getResourceAsStream(xmlFileName.substring(10)));
             else
                 document = db.parse(new File(xmlFileName));
             

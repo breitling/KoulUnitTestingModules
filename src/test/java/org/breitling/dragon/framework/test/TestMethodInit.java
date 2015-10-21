@@ -18,7 +18,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.breitling.dragon.framework.jdbc.RowMapper;
 import org.breitling.dragon.framework.types.TestWithMethodInit;
-import org.breitling.dragon.framework.util.Utility;
+import org.breitling.dragon.framework.util.DbUtils;
 
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -45,7 +45,7 @@ public class TestMethodInit extends TestWithMethodInit
     @Test
     public void testTestWithMethodInit_schemaAdditions_Tables() throws Exception
     {
-        Connection conn = Utility.getInstance().getConnection();
+        Connection conn = DbUtils.getConnection();
         DatabaseMetaData md = conn.getMetaData();
         ResultSet rs = md.getTables(null, "PUBLIC", "%", null);
         
