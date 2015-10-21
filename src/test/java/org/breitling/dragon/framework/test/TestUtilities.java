@@ -16,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.breitling.dragon.framework.types.SimpleTest;
-import org.breitling.dragon.framework.util.Utility;
+import org.breitling.dragon.framework.util.DbUtils;
 import org.breitling.dragon.framework.utils.Functions;
 import org.breitling.dragon.framework.utils.StringUtils;
 
@@ -39,7 +39,7 @@ public class TestUtilities extends SimpleTest
 	@Test
 	public void testCallingPrivateMethod_OneArg_String() throws Exception
 	{
-		String results = (String) Utility.getInstance().testPrivateMethod(functions, "camelCase", "this is a test");
+		String results = (String) DbUtils.testPrivateMethod(functions, "camelCase", "this is a test");
 		
 		assertEquals("This Is A Test", results);
 	}
@@ -47,7 +47,7 @@ public class TestUtilities extends SimpleTest
 	@Test
 	public void testCallingPrivateMethod_ThreeArgs_Value() throws Exception
 	{
-		int value = (Integer) Utility.getInstance().testPrivateMethod(functions, "add3", new Integer(1), new Integer(2), new Integer(3));
+		int value = (Integer) DbUtils.testPrivateMethod(functions, "add3", new Integer(1), new Integer(2), new Integer(3));
 		
 		assertEquals(6, value);
 	}
@@ -55,7 +55,7 @@ public class TestUtilities extends SimpleTest
 	@Test
 	public void testCallingPrivateMethod_ThreePrimitiveArgs_Value() throws Exception
 	{
-		int value = (Integer) Utility.getInstance().testPrivateMethod(functions, "add3", 1, 2, 3);
+		int value = (Integer) DbUtils.testPrivateMethod(functions, "add3", 1, 2, 3);
 		
 		assertEquals(6, value);
 	}
@@ -66,7 +66,7 @@ public class TestUtilities extends SimpleTest
 		expectedException.expect(Exception.class);
 		expectedException.expectMessage("arg is null.");
         
-		Utility.getInstance().testPrivateMethod(functions, "validate", (String) null);
+		DbUtils.testPrivateMethod(functions, "validate", (String) null);
 	}
 	
 	@Test
@@ -75,7 +75,7 @@ public class TestUtilities extends SimpleTest
 		expectedException.expect(Exception.class);
 		expectedException.expectMessage("arg is empty.");
         
-		Utility.getInstance().testPrivateMethod(functions, "validate", "");
+		DbUtils.testPrivateMethod(functions, "validate", "");
 	}
 	
 	@Test
@@ -87,7 +87,7 @@ public class TestUtilities extends SimpleTest
 		list.add("A");
 		list.add("Test");
 		
-		Integer size = (Integer) Utility.getInstance().testPrivateMethod(functions, "getArrayListSize", list);
+		Integer size = (Integer) DbUtils.testPrivateMethod(functions, "getArrayListSize", list);
 		
 		assertNotNull(size);
 		assertEquals(4, (int) size);
@@ -102,7 +102,7 @@ public class TestUtilities extends SimpleTest
 		list.add("A");
 		list.add("Test");
 		
-		Integer size = (Integer) Utility.getInstance().testPrivateMethod(functions, "getListSize", list);
+		Integer size = (Integer) DbUtils.testPrivateMethod(functions, "getListSize", list);
 		
 		assertNotNull(size);
 		assertEquals(4, (int) size);
@@ -114,7 +114,7 @@ public class TestUtilities extends SimpleTest
 		Functions f = new Functions();
 		StringUtils utils = new StringUtils();
 		
-		Utility.getInstance().injectObject(f, "utils", utils);
+		DbUtils.injectObject(f, "utils", utils);
 		
 		String value = f.changeCase("this is a test");
 		
@@ -129,6 +129,6 @@ public class TestUtilities extends SimpleTest
 		expectedException.expect(Exception.class);
 		expectedException.expectMessage("missing field productDAO");
 		
-		Utility.getInstance().injectObject(f, "productDAO", null);
+		DbUtils.injectObject(f, "productDAO", null);
 	}
 }
