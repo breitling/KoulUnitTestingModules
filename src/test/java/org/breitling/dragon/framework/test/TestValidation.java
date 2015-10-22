@@ -21,7 +21,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.breitling.dragon.framework.jdbc.RowMapper;
 import org.breitling.dragon.framework.types.SimpleDataBaseTest;
-import org.breitling.dragon.framework.util.Utility;
+import org.breitling.dragon.framework.util.DbUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:context.xml"})
@@ -60,9 +60,9 @@ public class TestValidation extends SimpleDataBaseTest
     @Test
     public void testSimpleDataBaseTest_tableExists_FoundTable() throws SQLException
     {
-        assertTrue(Utility.getInstance().isInitialized());
+        assertTrue(DbUtils.isInitialized());
 
-        Connection conn = Utility.getInstance().getConnection();
+        Connection conn = DbUtils.getConnection();
 
         assertNotNull(conn);
 
@@ -118,7 +118,7 @@ public class TestValidation extends SimpleDataBaseTest
     {
         try
         {
-            CallableStatement cStmt = Utility.getInstance().getConnection().prepareCall("{call public.get_test(?)}");
+            CallableStatement cStmt = DbUtils.getConnection().prepareCall("{call public.get_test(?)}");
 
             cStmt.setInt(1, 4);
             cStmt.execute();

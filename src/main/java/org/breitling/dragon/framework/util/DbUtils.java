@@ -19,29 +19,17 @@ import org.slf4j.LoggerFactory;
  * 
  */
 
-public class Utility
+public class DbUtils
 {	
-	private static Logger LOG = LoggerFactory.getLogger(Utility.class);
+	private static Logger LOG = LoggerFactory.getLogger(DbUtils.class);
 	
-	private DataSource dataSource;
-	private Connection h2Connection;
+	private static DataSource dataSource;
+	private static Connection h2Connection;
 
-	private static final Utility INSTANCE = new Utility();
+	private static boolean initialized = false;
 	
-	private boolean initialized = false;
 	
-	private Utility()
-	{	
-	}
-	
-	public static Utility getInstance()
-	{
-		return INSTANCE;
-	}
-
-//  PUBLIC METHODS
-	
-	public void closeQuietly(ResultSet rs)
+	public static void closeQuietly(ResultSet rs)
 	{
 	    try
 	    {
@@ -53,7 +41,7 @@ public class Utility
 	    }
 	}
 	
-	public void closeQuietly(Statement ps)
+	public static void closeQuietly(Statement ps)
 	{
 	    try
 	    {
@@ -65,7 +53,7 @@ public class Utility
 	    }
 	}
 	
-	public void commit()
+	public static void commit()
 	{
 	    try
 	    {
@@ -77,13 +65,13 @@ public class Utility
 	    }
 	}
 	
-	public void setUp() throws Exception
+	public static void setUp() throws Exception
 	{
 		try
 		{
 			if (dataSource != null)
 			{
-				h2Connection = this.dataSource.getConnection();
+				h2Connection = dataSource.getConnection();
 				initialized = true;
 			}
 		}
@@ -93,22 +81,22 @@ public class Utility
 		}
 	}
 	
-	public Connection getConnection()
+	public static Connection getConnection()
 	{
 		return h2Connection;
 	}
 	
-	public DataSource getDataSource()
+	public static DataSource getDataSource()
 	{
 		return dataSource;
 	}
 	
-	public void setDataSource(DataSource dataSource)
+	public static void setDataSource(DataSource ds)
 	{
-		this.dataSource = dataSource;
+		dataSource = ds;
 	}
 	
-	public Boolean isInitialized()
+	public static Boolean isInitialized()
 	{
 		if (initialized)
 			return Boolean.TRUE;
@@ -116,7 +104,7 @@ public class Utility
 			return Boolean.FALSE;
 	}
 	
-	public void injectObject(final Object o, final String fieldName, final Object value) throws RuntimeException
+	public static void injectObject(final Object o, final String fieldName, final Object value) throws RuntimeException
 	{
 		try
 		{
@@ -147,7 +135,7 @@ public class Utility
 		}
 	}
 	
-	public void rollback(Savepoint sp)
+	public static void rollback(Savepoint sp)
 	{
 	    try
 	    {
@@ -159,7 +147,7 @@ public class Utility
 	    }
 	}
 	
-	public void setAutoCommit(Boolean b)
+	public static void setAutoCommit(Boolean b)
 	{
 	    try
 	    {
@@ -171,12 +159,12 @@ public class Utility
 	    }
 	}
 	
-	public void tearDown() throws Exception
+	public static void tearDown() throws Exception
 	{
 		h2Connection.close();
 	}
 	
-	public Object testPrivateMethod(Object object, String name, Object... args) throws RuntimeException
+	public static Object testPrivateMethod(Object object, String name, Object... args) throws RuntimeException
 	{
 		Class<?> [] arg_types = new Class [args.length];
 		Object returning_object = null;

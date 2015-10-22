@@ -251,6 +251,8 @@ Error message and password prompt
 
 <li>$:/temp/RemoteAssetInfo/http://tiddlywiki.com/library/v5.1.9/index.html/$:/themes/tiddlywiki/vanilla</li>
 
+<li>$:/temp/search</li>
+
 <li>$:/temp/ServerConnection/http://tiddlywiki.com/library/v5.1.9/index.html</li>
 
 <li>$:/theme</li>
@@ -6376,10 +6378,13 @@ At this point it is largely for experimentation by @zooko.
 <div author="JeremyRuston" core-version="&gt;=5.0.0" created="20151019154852556" dependents="" description="Basic theme" modified="20151019154852556" name="Vanilla" original-plugin-type="theme" original-tags="" original-title="$:/themes/tiddlywiki/vanilla" original-type="application/json" server-url="http://tiddlywiki.com/library/v5.1.9/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/http://tiddlywiki.com/library/v5.1.9/index.html/$:/themes/tiddlywiki/vanilla" type="text/vnd.tiddlywiki" version="5.1.9">
 <pre></pre>
 </div>
+<div created="20151021014352429" modified="20151021015856417" title="$:/temp/search">
+<pre></pre>
+</div>
 <div created="20151019155243405" modified="20151019155243405" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/http://tiddlywiki.com/library/v5.1.9/index.html" url="http://tiddlywiki.com/library/v5.1.9/index.html">
 <pre>loaded</pre>
 </div>
-<div modified="20151020191735463" title="$:/theme">
+<div modified="20151021015904612" title="$:/theme">
 <pre>$:/themes/tiddlywiki/readonly</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/snowwhite" description="Centralises the story river, experimental" name="Centralised" plugin-type="theme" title="$:/themes/tiddlywiki/centralised" type="application/json" version="5.1.9">
@@ -6586,8 +6591,8 @@ The Spring-Framework dependencies is only required if you use the AOP unwrapping
 <div color="#0080c0" created="20151019181550387" modified="20151019181550387" title="example">
 <pre></pre>
 </div>
-<div created="20151020164802701" modified="20151020182238065" tags="" title="Example - DB Support Methods">
-<pre>The //Utility// class is a singleton with several public methods that implement some often used DB functionality. This will often make your unit test case methods cleaner. The following table lists the methods:
+<div created="20151020164802701" modified="20151021015133719" tags="" title="Example - DB Support Methods">
+<pre>The //DbUtils// class has several public methods that implement some often used DB functionality. This will often make your unit test case methods cleaner. The following table lists the methods:
 
 |Method|Functionality|h
 |closeQuietly(~ResultSet r)|quietly close the ~ResultSet by catching all exceptions|
@@ -6604,7 +6609,7 @@ The Spring-Framework dependencies is only required if you use the AOP unwrapping
 |injectObject(Object o, String n, Object v)|inject an object into a class|
 |testPrivateMethod(Object o, String n, Object...)|test a private method by calling it|
 
-The singleton is not initialized at startup. It has no data source or DB connection. If the user want to use this functionality, they are responsible for making the necessary method calls.
+The class is not initialized at startup. It has no data source or DB connection. If the user want to use this functionality, they are responsible for making the necessary method calls.
 
 </pre>
 </div>
@@ -6739,7 +6744,7 @@ ResultSet rs = FunctionSupport.getResultSet(dataSource,&quot;SELECT * FROM table
 |setSchema(String s)|set the internal schema name|
 </pre>
 </div>
-<div created="20151019204943853" modified="20151019210553069" tags="example" title="Example - Stored Procedures">
+<div created="20151019204943853" modified="20151021015631462" tags="example" title="Example - Stored Procedures">
 <pre>In your schema definition you will need to alias a stored procedure to a Java function.
 
 ```
@@ -6754,7 +6759,7 @@ In you test case you can call the stored procedure yourself:
     {
         .
         .
-        CallableStatement cStmt = Utility.getInstance().getConnection()
+        CallableStatement cStmt = DbUtils.getConnection()
                                          .prepareCall(&quot;{call public.get_test(?)}&quot;);
         cStmt.setInt(1, 4);
         cStmt.execute();
@@ -6775,12 +6780,12 @@ In //org.breitling.dragon.framework.utils.Functions.java// you define the functi
     }
 ```</pre>
 </div>
-<div created="20151020162431570" modified="20151020163145806" tags="example" title="Example - Testing Private Methods">
+<div created="20151020162431570" modified="20151021015703042" tags="example" title="Example - Testing Private Methods">
 <pre>```
 Functions functions;
 .
 .
-int value = (Integer) Utility.getInstance().testPrivateMethod(functions, &quot;add3&quot;, 1, 2, 3);
+int value = (Integer) DbUtils.testPrivateMethod(functions, &quot;add3&quot;, 1, 2, 3);
 assertEquals(6, value);
 ```
 

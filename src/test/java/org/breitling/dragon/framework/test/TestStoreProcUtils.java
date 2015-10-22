@@ -21,12 +21,12 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import org.breitling.dragon.framework.types.TestWithClassInit;
-import org.breitling.dragon.framework.util.FunctionSupport;
+import org.breitling.dragon.framework.util.StoredProcUtils;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = {"classpath:context.xml"})
 @Category(org.breitling.dragon.framework.category.BasicTests.class)
-public class TestFunctionSupport extends TestWithClassInit
+public class TestStoreProcUtils extends TestWithClassInit
 {
     @Autowired
     private DataSource dataSource;
@@ -34,8 +34,8 @@ public class TestFunctionSupport extends TestWithClassInit
     @BeforeClass
     public static void testSetUp()
     {
-    	TestFunctionSupport.addSchema("classpath:/test.schema");
-    	TestFunctionSupport.testSetup("classpath:/test.xml");
+    	TestStoreProcUtils.addSchema("classpath:/test.schema");
+    	TestStoreProcUtils.testSetup("classpath:/test.xml");
     }
 
     @Before
@@ -47,7 +47,7 @@ public class TestFunctionSupport extends TestWithClassInit
     @Test
     public void testGetResultSet_GoodSQLStatement_Results() throws SQLException
     {
-		ResultSet rs = FunctionSupport.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 3");
+		ResultSet rs = StoredProcUtils.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 3");
 
 		assertNotNull(rs);
 		assertTrue(rs.next());
@@ -67,7 +67,7 @@ public class TestFunctionSupport extends TestWithClassInit
     @Test
     public void testGetResultSet_NullDataSource_Null()
     {
-    	ResultSet rs = FunctionSupport.getResultSet(null, "SELECT * FROM test_table WHERE col1 = 3");
+    	ResultSet rs = StoredProcUtils.getResultSet(null, "SELECT * FROM test_table WHERE col1 = 3");
 
 		assertNull(rs);
     }
@@ -75,7 +75,7 @@ public class TestFunctionSupport extends TestWithClassInit
     @Test
     public void testGetResultSet_EmptySQLStatement_NoResults() throws SQLException
     {
-		ResultSet rs = FunctionSupport.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 99");
+		ResultSet rs = StoredProcUtils.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 99");
 
 		assertNotNull(rs);
 		assertFalse(rs.next());
