@@ -2,6 +2,7 @@ package org.breitling.dragon.framework.test;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
 import static org.junit.Assert.fail;
 
 import java.sql.ResultSet;
@@ -11,11 +12,15 @@ import java.util.List;
 import javax.sql.DataSource;
 
 import org.breitling.dragon.framework.jdbc.RowMapper;
+import org.breitling.dragon.framework.util.DbUtils;
 import org.breitling.dragon.framework.types.SimpleDataBaseTest;
+
 import org.h2.jdbcx.JdbcDataSource;
+
 import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
+
 
 public class TestDb extends SimpleDataBaseTest 
 {
@@ -33,6 +38,15 @@ public class TestDb extends SimpleDataBaseTest
        ds.setPassword("");
               
        dataSource = ds;
+
+       try
+       {
+           DbUtils.setDataSource(ds);
+           DbUtils.setUp();
+       }
+       catch (Exception e)
+       {
+       }
     }
 
     @Before
@@ -41,6 +55,12 @@ public class TestDb extends SimpleDataBaseTest
         testCaseSetup(dataSource);
     }
 
+    @Test
+    public void testDBTest_IsInitialized_True()
+    {
+        assertTrue(DbUtils.isInitialized());
+    }
+    
     @Test
     public void testDbTest_validateDB_Success()
     {
