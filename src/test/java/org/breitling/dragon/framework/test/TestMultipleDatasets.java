@@ -44,9 +44,7 @@ public class TestMultipleDatasets extends TestWithClassInit
     @Test
     public void testMultipleDatasets_TwoDataset_GoodCountOfRecords() throws Exception
     {
-    	List<Integer> values = super.executeQuery("select count(*) as cnt from site_category_type", new IntRowMapper());
-
-        Integer t = values.get(0);
+    	Integer t = super.getInt("select count(*) as cnt from site_category_type");
 
         assertNotNull(t);
         assertEquals(46, t.intValue());
