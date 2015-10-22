@@ -38,7 +38,7 @@ public class TestDb extends SimpleDataBaseTest
     @Before
     public void testCaseSetup() 
     {
-        super.testCaseSetup(dataSource);
+        testCaseSetup(dataSource);
     }
 
     @Test
@@ -46,7 +46,7 @@ public class TestDb extends SimpleDataBaseTest
     {
         try
         {
-            super.validateDB();
+            validateDB();
         }
         catch (Exception e)
         {
@@ -60,7 +60,7 @@ public class TestDb extends SimpleDataBaseTest
         try
         {
             executeUpdate("insert into test_table values(1, 'this', 'that is it', today)");
-            List<TestTable> values = super.executeQuery("select * from test_table where col1 = 1", new RowMapper<TestTable>() {
+            List<TestTable> values = executeQuery("select * from test_table where col1 = 1", new RowMapper<TestTable>() {
                 public TestTable mapRow(ResultSet rs, int rownumber) throws SQLException
                 {
                     TestTable td = new TestTable();
