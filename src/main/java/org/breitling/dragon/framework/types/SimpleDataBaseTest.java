@@ -32,52 +32,52 @@ public abstract class SimpleDataBaseTest extends DataBaseTestBase
     private static List<String> dataSetSchemaAdditions = new ArrayList<String>();
     
 //  ONLY CALLED IT SUPER CLASS CALLS (no @BeforeClass)
-	public static void testSetup()
-	{
-		DataBaseTestBase.testSetup();
-	}
-	
+    public static void testSetup()
+    {
+        DataBaseTestBase.testSetup();
+    }
+    
 //  ONLY CALLED IT SUPER CLASS CALLS (no @Before)
-	public void testCaseSetup(final DataSource dataSource)
-	{
-		super.testCaseSetup(dataSource);
-		
-		try
-		{
-		    if (dataSetSchemaAdditions.size() > 0)
-		    {
-		        Iterator<String> iterator = dataSetSchemaAdditions.iterator();
-		        
-		        while (iterator.hasNext())
-		        {
-		            addSchemaToDB(iterator.next());
-		            iterator.remove();
-		        }		        
-		    }
-		}
-		catch (RuntimeException rte)
-		{
-		    throw new RuntimeException("failed to load schema: " + rte.toString());
-		}		
-	}
-	
+    public void testCaseSetup(final DataSource dataSource)
+    {
+        super.testCaseSetup(dataSource);
+        
+        try
+        {
+            if (dataSetSchemaAdditions.size() > 0)
+            {
+                Iterator<String> iterator = dataSetSchemaAdditions.iterator();
+                
+                while (iterator.hasNext())
+                {
+                    addSchemaToDB(iterator.next());
+                    iterator.remove();
+                }                
+            }
+        }
+        catch (RuntimeException rte)
+        {
+            throw new RuntimeException("failed to load schema: " + rte.toString());
+        }        
+    }
+    
 //  ONLY CALLED IT SUPER CLASS CALLS (no @After)
-	public void testCaseTearDown()
-	{
-		super.testCaseTearDown();
-	}
-	
-	@AfterClass
-	public static void testTearDown()
-	{
-		DataBaseTestBase.testTearDown();
-		
-		dataSetAdditions = new ArrayList<String>();
-		dataSetSchemaAdditions = new ArrayList<String>();
-	}
-	
+    public void testCaseTearDown()
+    {
+        super.testCaseTearDown();
+    }
+    
+    @AfterClass
+    public static void testTearDown()
+    {
+        DataBaseTestBase.testTearDown();
+        
+        dataSetAdditions = new ArrayList<String>();
+        dataSetSchemaAdditions = new ArrayList<String>();
+    }
+    
 //  STATIC METHODS
-	
+    
     public static void addSchema(final String filename)
     {
         if (filename == null || filename.length() == 0)
@@ -128,8 +128,8 @@ public abstract class SimpleDataBaseTest extends DataBaseTestBase
         }
         catch (SQLException sqle)
         {
-        	LOG.error("error converting result set to a list of objects", sqle);
-        	throw new RuntimeException("failed to convert result set.");
+            LOG.error("error converting result set to a list of objects", sqle);
+            throw new RuntimeException("failed to convert result set.");
         }
         
         return values;
@@ -156,29 +156,29 @@ public abstract class SimpleDataBaseTest extends DataBaseTestBase
     protected IDataSet getDataSet(final String dataSet) throws Exception
     {
         int n = 0;        
-    	IDataSet [] xmlDataSets = new IDataSet [1 + SimpleDataBaseTest.dataSetAdditions.size()];
+        IDataSet [] xmlDataSets = new IDataSet [1 + SimpleDataBaseTest.dataSetAdditions.size()];
         FlatXmlDataSetBuilder builder = new FlatXmlDataSetBuilder();
 
         builder.setColumnSensing(true);
 
         if (dataSet.startsWith("classpath:"))
-        	xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSet.substring(10)));
+            xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSet.substring(10)));
         else
-        	xmlDataSets[n++] = builder.build(new FileInputStream(dataSet));
+            xmlDataSets[n++] = builder.build(new FileInputStream(dataSet));
         
         for (String dataSetName : SimpleDataBaseTest.dataSetAdditions)
         {
-        	if (dataSet.startsWith("classpath:"))
-        		xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSetName.substring(10)));
-        	else
-        		xmlDataSets[n++] = builder.build(new FileInputStream(dataSetName));
+            if (dataSet.startsWith("classpath:"))
+                xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSetName.substring(10)));
+            else
+                xmlDataSets[n++] = builder.build(new FileInputStream(dataSetName));
         }
 
         IDataSet composite = new CompositeDataSet(xmlDataSets);        
-    	ReplacementDataSet replacementDataSet = new ReplacementDataSet(composite);		
-		replacementDataSet.addReplacementObject("[NULL]",null);
-		
-		return replacementDataSet;
+        ReplacementDataSet replacementDataSet = new ReplacementDataSet(composite);        
+        replacementDataSet.addReplacementObject("[NULL]",null);
+        
+        return replacementDataSet;
     }
 
     protected String readFileToString(final String name) throws Exception

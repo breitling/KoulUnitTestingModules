@@ -34,8 +34,8 @@ public class TestStoreProcUtils extends TestWithClassInit
     @BeforeClass
     public static void testSetUp()
     {
-    	TestStoreProcUtils.addSchema("classpath:/test.schema");
-    	TestStoreProcUtils.testSetup("classpath:/test.xml");
+        TestStoreProcUtils.addSchema("classpath:/test.schema");
+        TestStoreProcUtils.testSetup("classpath:/test.xml");
     }
 
     @Before
@@ -47,37 +47,37 @@ public class TestStoreProcUtils extends TestWithClassInit
     @Test
     public void testGetResultSet_GoodSQLStatement_Results() throws SQLException
     {
-		ResultSet rs = StoredProcUtils.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 3");
+        ResultSet rs = StoredProcUtils.getResultSet(dataSource,    "SELECT * FROM test_table WHERE col1 = 3");
 
-		assertNotNull(rs);
-		assertTrue(rs.next());
-		
-		TestTable td = new TestTable();
+        assertNotNull(rs);
+        assertTrue(rs.next());
+        
+        TestTable td = new TestTable();
 
         td.col1 = rs.getInt(1);
         td.col2 = rs.getString(2);
         td.col3 = rs.getString(3);
         td.col4 = rs.getDate(4);
         
-		assertEquals(3, td.col1);
-		assertEquals("these", td.col2);
-		assertEquals("they are it", td.col3);
+        assertEquals(3, td.col1);
+        assertEquals("these", td.col2);
+        assertEquals("they are it", td.col3);
     }
     
     @Test
     public void testGetResultSet_NullDataSource_Null()
     {
-    	ResultSet rs = StoredProcUtils.getResultSet(null, "SELECT * FROM test_table WHERE col1 = 3");
+        ResultSet rs = StoredProcUtils.getResultSet(null, "SELECT * FROM test_table WHERE col1 = 3");
 
-		assertNull(rs);
+        assertNull(rs);
     }
     
     @Test
     public void testGetResultSet_EmptySQLStatement_NoResults() throws SQLException
     {
-		ResultSet rs = StoredProcUtils.getResultSet(dataSource,	"SELECT * FROM test_table WHERE col1 = 99");
+        ResultSet rs = StoredProcUtils.getResultSet(dataSource,    "SELECT * FROM test_table WHERE col1 = 99");
 
-		assertNotNull(rs);
-		assertFalse(rs.next());
+        assertNotNull(rs);
+        assertFalse(rs.next());
     }
 }

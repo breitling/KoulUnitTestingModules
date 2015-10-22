@@ -30,8 +30,8 @@ public class TestMultipleDatasets extends TestWithClassInit
     @BeforeClass
     public static void testSetup()
     {
-    	TestMultipleDatasets.addSchema("classpath:/test.schema");
-    	TestMultipleDatasets.testSetup("classpath:/test.xml");
+        TestMultipleDatasets.addSchema("classpath:/test.schema");
+        TestMultipleDatasets.testSetup("classpath:/test.xml");
         TestMultipleDatasets.addAnAdditionalDataset("classpath:/test2.xml");   // for each additional data set     
     }
     
@@ -44,7 +44,7 @@ public class TestMultipleDatasets extends TestWithClassInit
     @Test
     public void testMultipleDatasets_TwoDataset_GoodCountOfRecords() throws Exception
     {
-    	Integer t = super.getInt("select count(*) as cnt from site_category_type");
+        Integer t = super.getInt("select count(*) as cnt from site_category_type");
 
         assertNotNull(t);
         assertEquals(46, t.intValue());

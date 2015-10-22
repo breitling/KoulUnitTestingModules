@@ -26,15 +26,15 @@ public class TestQualifiedNames extends TestWithClassInit
     @BeforeClass
     public static void testSetUp()
     {
-    	TestQualifiedNames.addSchema("classpath:/QualifiedNames.schema");
-    	TestQualifiedNames.testSetup("classpath:/QualifiedNames.xml");
+        TestQualifiedNames.addSchema("classpath:/QualifiedNames.schema");
+        TestQualifiedNames.testSetup("classpath:/QualifiedNames.xml");
     }
     
     @Before
     public void testCaseSetup()
     {
-    	super.setSchema("public");
-    	super.setUseQualifiedNames(Boolean.TRUE);
+        super.setSchema("public");
+        super.setUseQualifiedNames(Boolean.TRUE);
         super.testCaseSetup(dataSource);
 /*        
 **      List<String> tables = super.getStrings("SELECT CONCAT(TABLE_SCHEMA,CONCAT('.',TABLE_NAME)) FROM INFORMATION_SCHEMA.TABLES");        
@@ -45,24 +45,24 @@ public class TestQualifiedNames extends TestWithClassInit
     @Test
     public void testTwoSchemas_InsertIntoSecondSchema_FindId()
     {
-    	super.executeUpdate("INSERT INTO DB2.test_table_2 VALUES(100, 'what')");
-    	
-    	int id = super.getInt("SELECT col1 FROM db2.test_table_2 WHERE col2 = 'what'");
-    	
-    	assertEquals(100, id);
+        super.executeUpdate("INSERT INTO DB2.test_table_2 VALUES(100, 'what')");
+        
+        int id = super.getInt("SELECT col1 FROM db2.test_table_2 WHERE col2 = 'what'");
+        
+        assertEquals(100, id);
     }
     
     @Test
     public void testUseQualifiedNames_FindOneRecord_Id1() 
     {
-    	int id = super.getInt("SELECT col1 FROM db1.test_table_1 WHERE col2 = 'this'");    	
-    	assertEquals(1, id);
+        int id = super.getInt("SELECT col1 FROM db1.test_table_1 WHERE col2 = 'this'");        
+        assertEquals(1, id);
     }
     
     @Test
     public void testUseQualifiedNames_FindOneRecord_Id9() 
     {
-    	int id = super.getInt("SELECT col1 FROM db2.test_table_2 WHERE col2 = 'crap'");
-    	assertEquals(13, id);
+        int id = super.getInt("SELECT col1 FROM db2.test_table_2 WHERE col2 = 'crap'");
+        assertEquals(13, id);
     }
 }

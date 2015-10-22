@@ -40,8 +40,8 @@ public class TestClassInit extends TestWithClassInit
     @BeforeClass
     public static void testSetUp()
     {
-    	TestClassInit.addSchema("classpath:/test.schema");
-    	TestClassInit.testSetup("classpath:/test.xml");
+        TestClassInit.addSchema("classpath:/test.schema");
+        TestClassInit.testSetup("classpath:/test.xml");
     }
 
     @Before
@@ -159,9 +159,9 @@ public class TestClassInit extends TestWithClassInit
     @Test
     public void testTestWithClassInit_getStrings_ListOfStrings()
     {
-    	List<String> tables = super.getStrings("SELECT CONCAT(TABLE_SCHEMA,CONCAT('.',TABLE_NAME)) FROM INFORMATION_SCHEMA.TABLES");        
+        List<String> tables = super.getStrings("SELECT CONCAT(TABLE_SCHEMA,CONCAT('.',TABLE_NAME)) FROM INFORMATION_SCHEMA.TABLES");        
 
-    	assertNotNull(tables);
+        assertNotNull(tables);
     }
     
     @Test
@@ -205,7 +205,7 @@ public class TestClassInit extends TestWithClassInit
     @Test
     public void testTestWithClassInit_nullValue_Null()
     {
-    	String s = super.getString("SELECT col2 FROM test_table WHERE col1 = 5");
+        String s = super.getString("SELECT col2 FROM test_table WHERE col1 = 5");
         
         assertNull(s);
     }
@@ -213,9 +213,9 @@ public class TestClassInit extends TestWithClassInit
     @Test
     public void testTestWithClassInit_emptyValue_String()
     {
-    	String s = super.getString("SELECT col3 FROM test_table WHERE col1 = 5");
+        String s = super.getString("SELECT col3 FROM test_table WHERE col1 = 5");
         
-    	assertNotNull(s);
-    	assertTrue(s.length() == 0);
+        assertNotNull(s);
+        assertTrue(s.length() == 0);
     }
 }

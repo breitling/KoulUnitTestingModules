@@ -5,14 +5,14 @@ import org.springframework.aop.support.AopUtils;
 
 public class AopSupport
 {
-	public static Object unwrapProxy(Object bean) throws Exception
-	{
-		if (AopUtils.isAopProxy(bean) && bean instanceof Advised) 
-		{
-			Advised advised = (Advised) bean;
-			bean = advised.getTargetSource().getTarget();
-		}
+    public static Object unwrapProxy(Object bean) throws Exception
+    {
+        if (AopUtils.isAopProxy(bean) && bean instanceof Advised) 
+        {
+            Advised advised = (Advised) bean;
+            bean = advised.getTargetSource().getTarget();
+        }
 
-		return bean;
-	}
+        return bean;
+    }
 }

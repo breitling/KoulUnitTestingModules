@@ -18,22 +18,22 @@ import org.breitling.dragon.framework.types.SimpleTest;
 @Category(org.breitling.dragon.framework.category.BasicTests.class)
 public class TestAssertions extends SimpleTest
 {
-	@Test
-	public void testContains_StringContainsString_True()
-	{
-		assertContains("ThisIsIt", "It");
-	}
-	
-	@Test
-	public void testContains_StringDoesNotContainString_Exception()
-	{
-		try
-		{
-			assertContains("ThisIsIt", "Not");
-		}
-		catch (AssertionError ae)
-		{
-			assertEquals("java.lang.AssertionError: 'ThisIsIt' does not contain 'Not'", ae.toString());
-		}
-	}
+    @Test
+    public void testContains_StringContainsString_True()
+    {
+        assertContains("ThisIsIt", "It");
+    }
+    
+    @Test
+    public void testContains_StringDoesNotContainString_Exception()
+    {
+        try
+        {
+            assertContains("ThisIsIt", "Not");
+        }
+        catch (AssertionError ae)
+        {
+            assertEquals("java.lang.AssertionError: 'ThisIsIt' does not contain 'Not'", ae.toString());
+        }
+    }
 }

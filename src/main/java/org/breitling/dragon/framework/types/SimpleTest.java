@@ -8,27 +8,27 @@ import org.breitling.dragon.framework.base.TestBase;
 
 public abstract class SimpleTest extends TestBase
 {
-	@BeforeClass
-	public static void testSetUp()
-	{
-		TestBase.testSetup();
-	}
+    @BeforeClass
+    public static void testSetUp()
+    {
+        TestBase.testSetup();
+    }
 
-	@Before
-	public void testCaseSetup()
-	{
-		super.testCaseSetup();
-	}
-	
-	@After
-	public void testCaseTearDown()
-	{
-		super.testCaseTearDown();
-	}
-	
-	@AfterClass
-	public static void testTearDown()
-	{
-		TestBase.testTearDown();
-	}
+    @Before
+    public void testCaseSetup()
+    {
+        super.testCaseSetup();
+    }
+    
+    @After
+    public void testCaseTearDown()
+    {
+        super.testCaseTearDown();
+    }
+    
+    @AfterClass
+    public static void testTearDown()
+    {
+        TestBase.testTearDown();
+    }
 }

@@ -19,27 +19,27 @@ import org.junit.Test;
 
 public class TestDb extends SimpleDataBaseTest 
 {
-	private static DataSource dataSource;
-	
-	@BeforeClass
-	public static void testSetup()
-	{
-	   TestDb.addSchema("classpath:/base.schema");
-	   
-	   JdbcDataSource ds = new JdbcDataSource();
-		   	
-	   ds.setURL("jdbc:h2:mem:dragon;MODE=MySQL");
-	   ds.setUser("sa");
-	   ds.setPassword("");
-		      
-	   dataSource = ds;
-	}
+    private static DataSource dataSource;
+    
+    @BeforeClass
+    public static void testSetup()
+    {
+       TestDb.addSchema("classpath:/base.schema");
+       
+       JdbcDataSource ds = new JdbcDataSource();
+               
+       ds.setURL("jdbc:h2:mem:dragon;MODE=MySQL");
+       ds.setUser("sa");
+       ds.setPassword("");
+              
+       dataSource = ds;
+    }
 
-	@Before
-	public void testCaseSetup() 
-	{
-		super.testCaseSetup(dataSource);
-	}
+    @Before
+    public void testCaseSetup() 
+    {
+        super.testCaseSetup(dataSource);
+    }
 
     @Test
     public void testDbTest_validateDB_Success()

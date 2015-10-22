@@ -6,7 +6,7 @@ import java.sql.Timestamp;
 
 public class TimestampRowMapper implements RowMapper<Timestamp>
 {
-	 public Timestamp mapRow(ResultSet rs, int rownumber) throws SQLException
+     public Timestamp mapRow(ResultSet rs, int rownumber) throws SQLException
      {
          return rs.getTimestamp(1);
      }
