@@ -7,7 +7,7 @@ import org.junit.After;
 
 public abstract class TestWithMethodInit extends SimpleDataBaseTest 
 {    
-    private static String dataSetName;    
+    private static String dataSetName;
 
     private static boolean initialized;
     

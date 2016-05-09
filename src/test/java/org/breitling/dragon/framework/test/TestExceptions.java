@@ -40,7 +40,7 @@ public class TestExceptions extends TestWithMethodInit
     {
         try
         {
-            super.testCaseSetup(null);
+            super.testCaseSetup((DataSource) null);
             fail("should not get here.");
         }
         catch (RuntimeException rte)
