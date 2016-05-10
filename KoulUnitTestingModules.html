@@ -43,7 +43,7 @@ ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF S
 DAMAGE.
 " />
 <link id="faviconLink" rel="shortcut icon" href="favicon.ico">
-<title>Dragon Unit Test Framework — a Java unit testing framework to test database code.</title>
+<title>Koul Unit Testing Modules — a Java unit testing framework to test database code.</title>
 <!--~~ This is a Tiddlywiki file. The points of interest in the file are marked with this pattern ~~--><!--~~ Raw markup ~~-->
 
 </head>
@@ -251,6 +251,8 @@ Error message and password prompt
 
 <li>$:/temp/RemoteAssetInfo/http://tiddlywiki.com/library/v5.1.9/index.html/$:/themes/tiddlywiki/vanilla</li>
 
+<li>$:/temp/search</li>
+
 <li>$:/temp/ServerConnection/http://tiddlywiki.com/library/v5.1.9/index.html</li>
 
 <li>$:/theme</li>
@@ -271,7 +273,7 @@ Error message and password prompt
 
 <li>DBUnit</li>
 
-<li>DragonUnitTestFramework</li>
+<li>Draft of 'KoulUnitTestingModules'</li>
 
 <li>example</li>
 
@@ -300,6 +302,10 @@ Error message and password prompt
 <li>How to use the framework</li>
 
 <li>Junit</li>
+
+<li>Koul</li>
+
+<li>KoulUnitTestingModules</li>
 
 <li>More Examples</li>
 
@@ -6046,8 +6052,8 @@ Error message and password prompt
     }
 }</pre>
 </div>
-<div created="20151019154426444" modified="20151019154431643" title="$:/DefaultTiddlers">
-<pre>DragonUnitTestFramework
+<div created="20151019154426444" modified="20160510040420173" title="$:/DefaultTiddlers">
+<pre>KoulUnitTestingModules
 </pre>
 </div>
 <div title="$:/isEncrypted">
@@ -6056,8 +6062,8 @@ Error message and password prompt
 <div created="20151019154345901" modified="20151019154414828" title="$:/SiteSubtitle">
 <pre>a Java unit testing framework to test database code.</pre>
 </div>
-<div created="20151019154337069" modified="20151019154341741" title="$:/SiteTitle">
-<pre>Dragon Unit Test Framework</pre>
+<div created="20151019154337069" modified="20160510041841952" title="$:/SiteTitle">
+<pre>Koul Unit Testing Modules</pre>
 </div>
 <div modified="20151020184532560" title="$:/state/showeditpreview">
 <pre>no</pre>
@@ -6077,13 +6083,13 @@ Error message and password prompt
 <div modified="20151019155309621" title="$:/state/tab-1749438307">
 <pre>$:/core/ui/ControlPanel/Appearance</pre>
 </div>
-<div modified="20151020005133487" title="$:/state/tab/moresidebar-401116514">
-<pre>$:/core/ui/MoreSideBar/All</pre>
+<div modified="20160510041809450" title="$:/state/tab/moresidebar-401116514">
+<pre>$:/core/ui/MoreSideBar/System</pre>
 </div>
-<div modified="20151022191056090" title="$:/state/tab/sidebar--1835078512">
-<pre>$:/core/ui/SideBar/Tools</pre>
+<div modified="20160510040941368" title="$:/state/tab/sidebar--1835078512">
+<pre>$:/core/ui/SideBar/More</pre>
 </div>
-<div list="DragonUnitTestFramework" title="$:/StoryList">
+<div list="[[Using the Framework Without Spring]] Koul [[How to use the framework]] [[Example - Stored Procedures]] [[Draft of 'KoulUnitTestingModules']]" title="$:/StoryList">
 <pre></pre>
 </div>
 <div created="20151019161248334" modified="20151019161842442" tags="$:/tags/Stylesheet" title="$:/StyleSheet">
@@ -6376,11 +6382,14 @@ At this point it is largely for experimentation by @zooko.
 <div author="JeremyRuston" core-version="&gt;=5.0.0" created="20151019154852556" dependents="" description="Basic theme" modified="20151019154852556" name="Vanilla" original-plugin-type="theme" original-tags="" original-title="$:/themes/tiddlywiki/vanilla" original-type="application/json" server-url="http://tiddlywiki.com/library/v5.1.9/index.html" tags="$:/tags/RemoteAssetInfo" title="$:/temp/RemoteAssetInfo/http://tiddlywiki.com/library/v5.1.9/index.html/$:/themes/tiddlywiki/vanilla" type="text/vnd.tiddlywiki" version="5.1.9">
 <pre></pre>
 </div>
+<div created="20160510035850303" modified="20160510042251606" title="$:/temp/search">
+<pre>Dragon</pre>
+</div>
 <div created="20151019155243405" modified="20151019155243405" tags="$:/tags/ServerConnection" title="$:/temp/ServerConnection/http://tiddlywiki.com/library/v5.1.9/index.html" url="http://tiddlywiki.com/library/v5.1.9/index.html">
 <pre>loaded</pre>
 </div>
-<div modified="20151022194945168" title="$:/theme">
-<pre>$:/themes/tiddlywiki/readonly</pre>
+<div modified="20160510040555606" title="$:/theme">
+<pre>$:/themes/tiddlywiki/snowwhite</pre>
 </div>
 <div author="JeremyRuston" core-version="&gt;=5.0.0" dependents="$:/themes/tiddlywiki/snowwhite" description="Centralises the story river, experimental" name="Centralised" plugin-type="theme" title="$:/themes/tiddlywiki/centralised" type="application/json" version="5.1.9">
 <pre>{
@@ -6521,8 +6530,8 @@ At this point it is largely for experimentation by @zooko.
 <div created="20151019160020418" modified="20151019160022521" title="DBUnit">
 <pre>http://dbunit.sourceforge.net/</pre>
 </div>
-<div created="20151019155401989" modified="20151020010200363" title="DragonUnitTestFramework">
-<pre>The Dragon Unit Test Framework leverages the functionality of [[Junit]], [[DBUnit]] and the [[H2]] database to allow a programmer to write unit tests for classes that depend on databases. The real database is replaced with an H2 in-memory equivalent that allows test cases to be written that have no external dependencies.  The framework also supports various other functionality that makes writing test cases easier and cleaner.
+<div created="20151019155401989" draft.of="KoulUnitTestingModules" draft.title="KoulUnitTestingModules" modified="20160510042524210" title="Draft of 'KoulUnitTestingModules'">
+<pre>The [[Koul]] Unit Testing Modules leverage the functionality of [[Junit]], [[DBUnit]] and the [[H2]] database to allow a programmer to write unit tests for classes that contain database dependencies. The real database is replaced with an H2 in-memory equivalent that allows test cases to be written that have no external dependencies.  The framework also supports various other functionality that makes writing test cases easier and cleaner.
 
 !.bannerStyle &amp;nbsp;Features
 
@@ -6544,8 +6553,8 @@ These are the main features of the framework:
 # Support assertions that contain sub-strings (assertContains).
 # Unwrapping AOP proxies.
 # Support for creating ~ResultSet objects from SQL statements or XML data set files (used to simply writing Java methods to implement your stored producers)
-# Open source [[GitHub|https://github.com/breitling/DragonUnitTestFramework]] project so new features can be added to support the community as a whole by anyone.
-# What's the next feature?!
+# Open source [[GitHub|https://github.com/breitling/KoulUnitTestingModules]] project so new features can be added to support the community as a whole by anyone.
+# ?
 
 !.bannerStyle &amp;nbsp;Project Dependencies
 
@@ -6576,7 +6585,7 @@ These are the main features of the framework:
 &lt;td&gt;3.2.4.RELEASE&lt;/td&gt;
 &lt;/tr&gt;&lt;/table&gt;
 
-The Spring-Framework dependencies is only required if you use the AOP unwrapping and injection support, but it is also a good way to setup your test classes to have an H2 data-source which the framework requires.
+The Spring-Framework dependencies is only required if you use Spring's dependency injection or the AOP unwrapping support, but it is also a good way to setup your test classes to have an H2 data-source which the framework requires.
 
 !.bannerStyle &amp;nbsp;Next
 
@@ -6739,11 +6748,11 @@ ResultSet rs = FunctionSupport.getResultSet(dataSource,&quot;SELECT * FROM table
 |setSchema(String s)|set the internal schema name|
 </pre>
 </div>
-<div created="20151019204943853" modified="20151019210553069" tags="example" title="Example - Stored Procedures">
+<div created="20151019204943853" modified="20160510042340020" tags="example" title="Example - Stored Procedures">
 <pre>In your schema definition you will need to alias a stored procedure to a Java function.
 
 ```
-CREATE ALIAS IF NOT EXISTS get_test FOR &quot;org.breitling.dragon.framework.utils.Functions.getTest&quot;;
+CREATE ALIAS IF NOT EXISTS get_test FOR &quot;org.breitling.koul.framework.utils.Functions.getTest&quot;;
 ```
 
 In you test case you can call the stored procedure yourself:
@@ -6765,7 +6774,7 @@ In you test case you can call the stored procedure yourself:
 
 ```
 
-In //org.breitling.dragon.framework.utils.Functions.java// you define the function:
+In //org.breitling.koul.framework.utils.Functions.java// you define the function:
 
 ```
     public static ResultSet getTest(int id)
@@ -6808,7 +6817,7 @@ ResultSet rs = FunctionSupport.getResultSetFromXml(&quot;classpath:/xmldataset.x
 <div created="20151019155940442" modified="20151019155951441" title="H2">
 <pre>http://www.h2database.com/html/main.html</pre>
 </div>
-<div created="20151019165638213" modified="20151020142005279" tags="topic" title="How to use the framework">
+<div created="20151019165638213" modified="20160510042417108" tags="topic" title="How to use the framework">
 <pre>The simplest way to use the framework  if you are going to use the DB testing features is to use the Spring-Framework to define a context that defines the H2 data-source and then annotate your test classes with Spring annotations:
 
 //context.xml//
@@ -6820,7 +6829,7 @@ ResultSet rs = FunctionSupport.getResultSetFromXml(&quot;classpath:/xmldataset.x
     &lt;/context:component-scan&gt;
     &lt;bean id=&quot;dataSource&quot; class=&quot;org.springframework.jdbc.datasource.DriverManagerDataSource&quot;&gt;
         &lt;property name=&quot;driverClassName&quot; value=&quot;org.h2.Driver&quot; /&gt;
-        &lt;property name=&quot;url&quot; value=&quot;jdbc:h2:mem:dragon;MODE=MySQL&quot; /&gt;
+        &lt;property name=&quot;url&quot; value=&quot;jdbc:h2:mem:koul;MODE=MySQL&quot; /&gt;
         &lt;property name=&quot;username&quot; value=&quot;sa&quot; /&gt;
         &lt;property name=&quot;password&quot; value=&quot;&quot; /&gt;
     &lt;/bean&gt;
@@ -6844,6 +6853,71 @@ Take a look at the framework's unit test sources for examples.
 </div>
 <div created="20151019160052467" modified="20151019160053832" title="Junit">
 <pre>http://junit.org/</pre>
+</div>
+<div created="20160510040716017" modified="20160510040828165" tags="" title="Koul">
+<pre>A koul is a snakelike, gigantic proto-dragon that must pass three tests of courage: coming to aid of others, the act of swimming, and a literal 'leap' of faith in order to become a dragon. </pre>
+</div>
+<div created="20151019155401989" modified="20160510041336292" title="KoulUnitTestingModules">
+<pre>The [[Koul]] Unit Testing Modules leverage the functionality of [[Junit]], [[DBUnit]] and the [[H2]] database to allow a programmer to write unit tests for classes that contain database dependencies. The real database is replaced with an H2 in-memory equivalent that allows test cases to be written that have no external dependencies.  The framework also supports various other functionality that makes writing test cases easier and cleaner.
+
+!.bannerStyle &amp;nbsp;Features
+
+These are the main features of the framework:
+
+# Several types of abstract classes to extend your test classes from:
+#* a class that allows the H2 database schema to be defined and initialized once for all the test cases in the class.
+#* a class that allows the H2 database schema to be defined and reinitialized on each test case.
+#* a class that defines a simple database test (default schema and initialized).
+#* a class that defines a simple test (no database).
+# Multiple schema files per test class.
+# Multiple data sets per test class.
+# Simple DB operations (executing queries with various return types: Integer, String, Timestamp, List, etc.).
+# JDBC support for several types of row mappers (Integer, String, Timestamp, reusable, generic ~RowMapper interface).
+# Support multiple schemas in one database via qualified names.
+# Support for simple validation of a database.
+# Support for Java methods that implement your stored procedures (H2 support stored procedures with Java methods).
+# Support for many common DB functions that keeps your code cleaner (closing result sets, closing statements, commits, rollbacks, injecting objects into your test cases to overcome AOP issues, testing private methods in your Java classes).
+# Support assertions that contain sub-strings (assertContains).
+# Unwrapping AOP proxies.
+# Support for creating ~ResultSet objects from SQL statements or XML data set files (used to simply writing Java methods to implement your stored producers)
+# Open source [[GitHub|https://github.com/breitling/DragonUnitTestFramework]] project so new features can be added to support the community as a whole by anyone.
+# ?
+
+!.bannerStyle &amp;nbsp;Project Dependencies
+
+&lt;table border=&quot;0&quot; class=&quot;bodyTable&quot;&gt;
+&lt;tr class=&quot;a&quot;&gt;
+&lt;th&gt;~GroupId&lt;/th&gt;
+&lt;th&gt;~ArtifactId&lt;/th&gt;
+&lt;th&gt;Version&lt;/th&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;b&quot;&gt;
+&lt;td&gt;com.h2database&lt;/td&gt;
+&lt;td&gt;&lt;a class=&quot;externalLink&quot; href=&quot;http://www.h2database.com&quot;&gt;h2&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;1.4.181&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;a&quot;&gt;
+&lt;td&gt;junit&lt;/td&gt;
+&lt;td&gt;&lt;a class=&quot;externalLink&quot; href=&quot;http://junit.org&quot;&gt;junit&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;4.11&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;b&quot;&gt;
+&lt;td&gt;org.dbunit&lt;/td&gt;
+&lt;td&gt;&lt;a class=&quot;externalLink&quot; href=&quot;http://dbunit.sourceforge.net&quot;&gt;dbunit&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;2.5.2-20150907.193424-4&lt;/td&gt;
+&lt;/tr&gt;
+&lt;tr class=&quot;a&quot;&gt;
+&lt;td&gt;org.springframework&lt;/td&gt;
+&lt;td&gt;&lt;a class=&quot;externalLink&quot; href=&quot;https://github.com/SpringSource/spring-framework&quot;&gt;spring-aop&lt;/a&gt;&lt;/td&gt;
+&lt;td&gt;3.2.4.RELEASE&lt;/td&gt;
+&lt;/tr&gt;&lt;/table&gt;
+
+The Spring-Framework dependencies is only required if you use Spring's dependency injection or the AOP unwrapping support, but it is also a good way to setup your test classes to have an H2 data-source which the framework requires.
+
+!.bannerStyle &amp;nbsp;Next
+
+[[How to use the framework]]&lt;br&gt;
+[[Using the Framework Without Spring]]</pre>
 </div>
 <div created="20151019172613865" modified="20151019191059314" tags="topic" title="More Examples">
 <pre>&lt;$list filter=&quot;[tag[example]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
@@ -6918,7 +6992,7 @@ public class MyDAOTests extends TestWithClassInit
 <div created="20151020003025697" modified="20151020003429860" tags="" title="Topics">
 <pre>&lt;$list filter=&quot;[tag[topic]sort[title]]&quot;&gt;&lt;div class=&quot;tw-menu-list-subitem&quot;&gt;&lt;$link to={{!!title}}&gt;&lt;$view field=&quot;title&quot;/&gt;&lt;/$link&gt;&lt;/div&gt;&lt;/$list&gt;</pre>
 </div>
-<div created="20151020002838734" modified="20151022194858976" tags="topic" title="Using the Framework Without Spring">
+<div created="20151020002838734" modified="20160510042447107" tags="topic" title="Using the Framework Without Spring">
 <pre>```
     private static DataSource dataSource;
     @BeforeClass
@@ -6926,7 +7000,7 @@ public class MyDAOTests extends TestWithClassInit
     {
         TestDb.addSchema(&quot;classpath:/base.schema&quot;);
         JdbcDataSource ds = new JdbcDataSource();
-        ds.setURL(&quot;jdbc:h2:mem:dragon;MODE=MySQL&quot;);
+        ds.setURL(&quot;jdbc:h2:mem:koul;MODE=MySQL&quot;);
         ds.setUser(&quot;sa&quot;);
         ds.setPassword(&quot;&quot;);
         dataSource = ds;
