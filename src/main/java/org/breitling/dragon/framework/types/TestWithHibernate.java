@@ -79,7 +79,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
         if (emf != null)
             return ((HibernateEntityManagerFactory) emf).getSessionFactory();
         else
-            throw new RuntimeException("no entity manager factory!");
+            throw new RuntimeException("no entity session factory!");
     }
     
     public static void initializeDBSchemaForClass(Class<?> klass)
