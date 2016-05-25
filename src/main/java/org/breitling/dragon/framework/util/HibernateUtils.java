@@ -21,20 +21,23 @@ public class HibernateUtils
     
     public static EntityManagerFactory getFactory(String persistenceUnit) throws Exception
     {
-        LOG.debug("EntityManager using " + persistenceUnit + " as persistence unit.");
- 
-        Map<String, Object> configs = new HashMap<String, Object>();
-        configs.put("connection.driver_class", "org.h2.Driver");
-        configs.put("hibernate.connection.url" ,"jdbc:h2:mem:test");
-        configs.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
-        configs.put("hibernate.hbm2ddl.auto", "create");        
-        configs.put("hibernate.show_sql", "true");
-        configs.put("cache.provider", "org.hibernate.cache.internal.NoCacheProvider");
-        
-        factory = Persistence.createEntityManagerFactory(persistenceUnit, configs);
+        if (factory == null)
+        {
+            LOG.debug("EntityManager using " + persistenceUnit + " as persistence unit.");
 
-        isInitialized = true;
-                
+            Map<String, Object> configs = new HashMap<String, Object>();
+            configs.put("connection.driver_class", "org.h2.Driver");
+            configs.put("hibernate.connection.url" ,"jdbc:h2:mem:test;DB_CLOSE_DELAY=-1");
+            configs.put("hibernate.dialect", "org.hibernate.dialect.H2Dialect");
+            configs.put("hibernate.hbm2ddl.auto", "create");        
+            configs.put("hibernate.show_sql", "true");
+            configs.put("cache.provider", "org.hibernate.cache.internal.NoCacheProvider");
+
+            factory = Persistence.createEntityManagerFactory(persistenceUnit, configs);
+
+            isInitialized = true;
+        }
+        
         return factory;
     }
     
@@ -53,11 +56,25 @@ public class HibernateUtils
     
     public static Map<String,Object> getProperties()
     {
-        return factory.getProperties();
+        if (factory != null)
+            return factory.getProperties();
+        else
+            return null;
     }
     
     public static Boolean isInitialized()
     {
         return new Boolean(isInitialized);
+    }
+    
+    public static void close()
+    {
+        if (factory != null)
+        {
+            factory.close();
+            
+            factory = null;
+            isInitialized = false;
+        }
     }
 }

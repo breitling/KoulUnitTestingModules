@@ -5,12 +5,12 @@ import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-
+import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.ejb.HibernateEntityManagerFactory;
 import org.hibernate.impl.SessionFactoryImpl;
-
 import org.junit.After;
+import org.junit.AfterClass;
 import org.breitling.dragon.framework.util.HibernateUtils;
 
 public abstract class TestWithHibernate extends SimpleDataBaseTest 
@@ -18,7 +18,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
     private static String dataSetName = null;  
     private static EntityManagerFactory emf = null;
     
-    private boolean initialized = false;
+    private static boolean initialized = false;
         
     public static void testSetup(final String persistenceUnit)
     {
@@ -79,7 +79,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
         if (emf != null)
             return ((HibernateEntityManagerFactory) emf).getSessionFactory();
         else
-            throw new RuntimeException("no entity session factory!");
+            throw new RuntimeException("no entity manager factory!");
     }
     
     public static void initializeDBSchemaForClass(Class<?> klass)
@@ -94,7 +94,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
         }
         catch (Exception e)
         {
-            // TODO: log something...   
+            throw new RuntimeException("Failed to initialized DB schema: " + e.toString());
         }
     }
     
@@ -114,8 +114,21 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
         return rc;
     }
     
-    @After
+//  @After
     public void testCaseTearDown()
     {
+        super.testCaseTearDown();
+    }
+   
+    @AfterClass
+    public static void testTearDown()
+    {
+        SimpleDataBaseTest.testTearDown();
+
+        HibernateUtils.close();
+        
+        dataSetName = null;
+        emf = null;
+        initialized = false;
     }
 }
