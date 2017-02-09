@@ -16,7 +16,8 @@ import org.junit.runners.Suite;
     org.breitling.dragon.framework.test.TestSimple.class,
     org.breitling.dragon.framework.test.TestUtilities.class,
     org.breitling.dragon.framework.test.TestValidation.class,
-    org.breitling.dragon.framework.test.TestXmlDataSet.class
+    org.breitling.dragon.framework.test.TestXmlDataSet.class,
+    org.breitling.dragon.framework.test.TestRunInThread.class
 })
 
 public class AllTests

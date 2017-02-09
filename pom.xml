@@ -3,7 +3,7 @@
 
     <groupId>org.breitling</groupId>
     <artifactId>DragonUnitTestFramework</artifactId>
-    <version>2.1</version>
+    <version>2.4</version>
     <name>DragonUnitTestFramework</name>
     <description>Framework for our Dragon JUnit test suites.</description>
     
