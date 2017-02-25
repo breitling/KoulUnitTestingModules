@@ -24,7 +24,11 @@ import org.w3c.dom.NodeList;
 
 public class StoredProcUtils
 {
-    private static Logger LOG = LoggerFactory.getLogger(StoredProcUtils.class);
+    private final static Logger LOG = LoggerFactory.getLogger(StoredProcUtils.class);
+    
+    private StoredProcUtils()
+    {
+    }
     
     public static ResultSet getResultSet(final DataSource dataSource, final String sql)
     {
