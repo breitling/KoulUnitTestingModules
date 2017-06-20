@@ -47,9 +47,19 @@ public class Functions
         return sb.toString().trim();
     }
     
-    private Integer add3(int a1, int a2, int a3)
+    private int add2(Integer a1, Integer a2)
+    {
+        return a1 + a2;
+    }
+
+    private Integer add3(Integer a1, Integer a2, Integer a3)
     {
         return a1 + a2 + a3;
+    }
+    
+    private short add3(short a1, short a2, short a3)
+    {
+        return (short) (a1 + a2 + a3);
     }
     
     private void validate(final String arg) throws RuntimeException
