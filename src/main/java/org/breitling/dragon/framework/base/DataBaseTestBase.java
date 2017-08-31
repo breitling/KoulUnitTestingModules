@@ -10,7 +10,14 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.List;
+
 import javax.sql.DataSource;
+
+import org.breitling.dragon.framework.jdbc.IntRowMapper;
+import org.breitling.dragon.framework.jdbc.RowMapper;
+import org.breitling.dragon.framework.jdbc.StringRowMapper;
+import org.breitling.dragon.framework.jdbc.TimestampRowMapper;
+import org.breitling.dragon.framework.util.DbUtils;
 import org.dbunit.DataSourceDatabaseTester;
 import org.dbunit.DefaultDatabaseTester;
 import org.dbunit.IDatabaseTester;
@@ -18,16 +25,12 @@ import org.dbunit.IOperationListener;
 import org.dbunit.database.DatabaseConfig;
 import org.dbunit.database.DatabaseConnection;
 import org.dbunit.database.IDatabaseConnection;
-import org.hibernate.connection.DriverManagerConnectionProvider;
-import org.hibernate.impl.SessionFactoryImpl;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
+import org.hibernate.internal.SessionImpl;
 import org.junit.AfterClass;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.breitling.dragon.framework.jdbc.IntRowMapper;
-import org.breitling.dragon.framework.jdbc.RowMapper;
-import org.breitling.dragon.framework.jdbc.StringRowMapper;
-import org.breitling.dragon.framework.jdbc.TimestampRowMapper;
-import org.breitling.dragon.framework.util.DbUtils;
 
 
 public abstract class DataBaseTestBase extends TestBase
@@ -69,7 +72,7 @@ public abstract class DataBaseTestBase extends TestBase
 		}
 	}
 	
-	public void testCaseSetup(final SessionFactoryImpl sf)
+	public void testCaseSetup(final SessionFactory sf)
 	{
 	    super.testCaseSetup();
 	    
@@ -78,13 +81,15 @@ public abstract class DataBaseTestBase extends TestBase
 	    
 	    try
         {
-	        DriverManagerConnectionProvider cp = (DriverManagerConnectionProvider) sf.getConnectionProvider();
-	        Connection connection = cp.getConnection();
-
+	    	Session session = sf.openSession();
+	        Connection connection = ((SessionImpl) session).connection();
+	        
 	        DbUtils.setConnection(connection);
 	        
             databaseTester = new DefaultDatabaseTester(new DatabaseConnection(connection));            
             databaseTester.setOperationListener(new DataBaseTestBaseOperationalListener());
+            
+            session.close();
         }
         catch (Exception e)
         {

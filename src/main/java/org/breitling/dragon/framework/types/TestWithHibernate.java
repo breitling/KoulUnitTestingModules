@@ -8,7 +8,6 @@ import javax.persistence.EntityManagerFactory;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.ejb.HibernateEntityManagerFactory;
-import org.hibernate.impl.SessionFactoryImpl;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.breitling.dragon.framework.util.HibernateUtils;
@@ -45,7 +44,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
     
     public void testCaseSetup()
     {
-        super.testCaseSetup((SessionFactoryImpl) getSessionFactory());
+        super.testCaseSetup((SessionFactory) getSessionFactory());
         
         try
         {
