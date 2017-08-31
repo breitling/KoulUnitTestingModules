@@ -9,7 +9,7 @@
     
     <properties>
         <junit-version>4.12</junit-version>
-        <dbunit-version>2.5.2-SNAPSHOT</dbunit-version>
+        <dbunit-version>2.5.4</dbunit-version>
         <spring-version>3.2.4.RELEASE</spring-version>
     </properties>
     
@@ -137,4 +137,17 @@
             <version>2.8.9</version>
         </dependency>         
     </dependencies>
+    
+<!--  SG360 NEXUS -->
+	<distributionManagement>
+        <snapshotRepository>
+	        <id>SG360-Snapshots</id>
+	        <url>http://sg360-devops01.ad.sg360.com:8083/repository/SG360-Snapshots/</url>
+	    </snapshotRepository>
+	    <repository>
+	        <id>SG360-Releases</id>
+	        <url>http://sg360-devops01.ad.sg360.com:8083/repository/SG360-Releases/</url>
+	    </repository>
+    </distributionManagement>
+    
 </project>
