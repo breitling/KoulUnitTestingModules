@@ -3,14 +3,13 @@ package org.breitling.dragon.framework.types;
 import java.io.File;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
+
 import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
-import org.hibernate.Session;
-import org.hibernate.SessionFactory;
-import org.hibernate.ejb.HibernateEntityManagerFactory;
-import org.junit.After;
-import org.junit.AfterClass;
+
 import org.breitling.dragon.framework.util.HibernateUtils;
+import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 
 public abstract class TestWithHibernate extends SimpleDataBaseTest 
 {
@@ -76,7 +75,7 @@ public abstract class TestWithHibernate extends SimpleDataBaseTest
     public static SessionFactory getSessionFactory()
     {
         if (emf != null)
-            return ((HibernateEntityManagerFactory) emf).getSessionFactory();
+            return emf.unwrap(SessionFactory.class);
         else
             throw new RuntimeException("no entity manager factory!");
     }
