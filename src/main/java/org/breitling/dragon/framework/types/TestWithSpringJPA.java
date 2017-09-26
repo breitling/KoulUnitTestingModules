@@ -5,6 +5,7 @@ import javax.persistence.PersistenceContext;
 
 import org.breitling.dragon.framework.util.DragonSpringJPAConfig;
 import org.hibernate.SessionFactory;
+import org.junit.AfterClass;
 import org.springframework.beans.factory.annotation.Autowired;
 
 
@@ -51,6 +52,23 @@ public abstract class TestWithSpringJPA extends SimpleDataBaseTest
             throw new RuntimeException("failed to load dataset(" + dataSetName + "): " + e.toString());
         }
     }    
+    
+//  @After
+    public void testCaseTearDown()
+    {
+        super.testCaseTearDown();
+    }
+   
+    @AfterClass
+    public static void testTearDown()
+    {
+        SimpleDataBaseTest.testTearDown();
+
+        dataSetName = null;
+        initialized = false;
+    }
+    
+//  PUBLIC METHODS
     
     public EntityManager getEntityManager()
     {
