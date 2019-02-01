@@ -11,29 +11,29 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 public abstract class TestWithSpringJPA extends SimpleDataBaseTest 
 {
-	@PersistenceContext
+    @PersistenceContext
     private EntityManager em;
-	
-	@Autowired
-	private DragonSpringJPAConfig config;
-	
-	private static boolean initialized = false;
+    
+    @Autowired
+    private DragonSpringJPAConfig config;
+    
+    private static boolean initialized = false;
 
-	private static String dataSetName = null;
-	
-	
+    private static String dataSetName = null;
+    
+    
     public static void testSetup(final String name)
     {
-    	SimpleDataBaseTest.testSetup();
-    	
+        SimpleDataBaseTest.testSetup();
+        
         if (name != null && name.length() > 0)
             dataSetName = name;
     }
     
     public void testCaseSetup()
     {
-    	super.testCaseSetup(config.getDataSource());
-    	
+        super.testCaseSetup(config.getDataSource());
+        
         try
         {
             if (initialized == false)
@@ -49,7 +49,7 @@ public abstract class TestWithSpringJPA extends SimpleDataBaseTest
         }
         catch (Exception e)
         {
-            throw new RuntimeException("failed to load dataset(" + dataSetName + "): " + e.toString());
+            throw new RuntimeException("failed to load dataset(" + dataSetName + "): " + e.getCause() != null ? e.getCause().toString() : e.toString());
         }
     }    
     
@@ -72,7 +72,7 @@ public abstract class TestWithSpringJPA extends SimpleDataBaseTest
     
     public EntityManager getEntityManager()
     {
-    	return em;
+        return em;
     }
     
     public SessionFactory getSessionFactory()

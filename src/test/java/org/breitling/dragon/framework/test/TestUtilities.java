@@ -9,6 +9,7 @@ import java.util.List;
 import org.junit.BeforeClass;
 import org.junit.Rule;
 import org.junit.Test;
+import org.junit.Ignore;
 import org.junit.experimental.categories.Category;
 import org.junit.rules.ExpectedException;
 import org.junit.runner.RunWith;
@@ -129,7 +130,8 @@ public class TestUtilities extends SimpleTest
         DbUtils.injectObject(f, "productDAO", null);
     }
     
-        @Test
+    @Test
+    @Ignore
     public void testCallingPrivateMethod_UsingMockitoProxy_MethodInvoked()
     {
         Functions spied = org.mockito.Mockito.spy(new Functions());
@@ -140,6 +142,7 @@ public class TestUtilities extends SimpleTest
     }
     
     @Test
+    @Ignore
     public void testCallingPrivateMethod_UsingProxiedArgs_MethodInvoked()
     {
         List spied = org.mockito.Mockito.spy(buildList());

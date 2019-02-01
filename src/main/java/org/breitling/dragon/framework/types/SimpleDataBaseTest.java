@@ -22,6 +22,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import org.breitling.dragon.framework.base.DataBaseTestBase;
+import org.springframework.core.io.ClassPathResource;
 
 
 public abstract class SimpleDataBaseTest extends DataBaseTestBase
@@ -140,7 +141,7 @@ public abstract class SimpleDataBaseTest extends DataBaseTestBase
         try
         {
             if (filename.startsWith("classpath:"))
-                execute(readInputStreamToString(this.getClass().getResourceAsStream(filename.substring(10))));
+                execute(readInputStreamToString(new ClassPathResource(filename.substring(11)).getInputStream()));
             else
                 execute(readFileToString(filename));
         }
@@ -162,14 +163,14 @@ public abstract class SimpleDataBaseTest extends DataBaseTestBase
         builder.setColumnSensing(true);
 
         if (dataSet.startsWith("classpath:"))
-            xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSet.substring(10)));
+            xmlDataSets[n++] = builder.build(new ClassPathResource(dataSet.substring(11)).getInputStream());
         else
             xmlDataSets[n++] = builder.build(new FileInputStream(dataSet));
         
         for (String dataSetName : SimpleDataBaseTest.dataSetAdditions)
         {
             if (dataSet.startsWith("classpath:"))
-                xmlDataSets[n++] = builder.build(this.getClass().getResourceAsStream(dataSetName.substring(10)));
+                xmlDataSets[n++] = builder.build(new ClassPathResource(dataSetName.substring(11)).getInputStream());
             else
                 xmlDataSets[n++] = builder.build(new FileInputStream(dataSetName));
         }
