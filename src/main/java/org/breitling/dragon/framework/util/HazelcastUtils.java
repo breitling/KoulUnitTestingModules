@@ -7,6 +7,7 @@ package org.breitling.dragon.framework.util;
 
 import com.hazelcast.config.JoinConfig;
 import com.hazelcast.config.NetworkConfig;
+import com.hazelcast.config.TcpIpConfig;
 import com.hazelcast.core.Hazelcast;
 import com.hazelcast.core.HazelcastInstance;
 
@@ -54,8 +55,12 @@ public class HazelcastUtils
         network.setPortAutoIncrement(true);
         
         JoinConfig join = network.getJoin();
-        join.getMulticastConfig().setEnabled(true);
+        join.getMulticastConfig().setEnabled(false);
         join.getAwsConfig().setEnabled(false);;
+        
+        TcpIpConfig tcp = join.getTcpIpConfig();
+        tcp.setEnabled(true);
+        tcp.addMember("localhost");
         
         return config; 
     }
