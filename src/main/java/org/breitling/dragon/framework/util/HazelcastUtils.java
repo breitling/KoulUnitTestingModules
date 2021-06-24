@@ -17,24 +17,24 @@ import com.hazelcast.core.HazelcastInstance;
  */
 public class HazelcastUtils
 {
-    private static String groupName;
-    private static String groupPassword;
+    private static String clusterName;
+    private static String instanceName;
     
     private HazelcastUtils(){
     }
     
     public static HazelcastInstance createTestInstance()
     {
-        groupName = "TestDataGrid";
-        groupPassword = "T3st4A11";
+        clusterName = "TestIMDG";
+        instanceName = "TestCaching";
         
         return Hazelcast.newHazelcastInstance(hazelCastConfigBean());
     }
     
-    public static HazelcastInstance createTestInstance(String name, String password)
+    public static HazelcastInstance createTestInstance(String cluster, String instance)
     {
-        groupName = name;
-        groupPassword = password;
+        clusterName = cluster;
+        instanceName = instance;
         
         return Hazelcast.newHazelcastInstance(hazelCastConfigBean());
     }
@@ -46,9 +46,8 @@ public class HazelcastUtils
     {
         com.hazelcast.config.Config config = new com.hazelcast.config.Config();
         
-        config.setInstanceName("TestDataGrid");
-        config.getGroupConfig().setName(groupName);
-        config.getGroupConfig().setPassword(groupPassword);
+        config.setClusterName(clusterName);
+        config.setInstanceName(instanceName);
         
         NetworkConfig network = config.getNetworkConfig();
         network.setPort(5701).setPortCount(10);
