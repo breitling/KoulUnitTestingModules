@@ -15,7 +15,7 @@ public class TestHazelcastUtils extends SimpleTest
 //  TEST CASES
     
     @Test
-    public void testcreateTestInstance_DefaultNames_Instance()
+    public void testCreateTestInstance_DefaultNames_Instance()
     {
         instance = HazelcastUtils.createTestInstance();
         
@@ -23,9 +23,17 @@ public class TestHazelcastUtils extends SimpleTest
     }
     
     @Test
-    public void testcreateTestInstance_Names_Instance()
+    public void testCreateTestInstance_Names_Instance()
     {
         instance = HazelcastUtils.createTestInstance("MyCluster", "MyCaching");
+        
+        assertNotNull(instance);
+    }
+    
+    @Test
+    public void testCreateTestInstance_All_Instance()
+    {
+        instance = HazelcastUtils.createTestInstance("localhost", 5702, "My-Cluster", "My-Caching");
         
         assertNotNull(instance);
     }
@@ -35,6 +43,7 @@ public class TestHazelcastUtils extends SimpleTest
     {
         instance.shutdown();
         instance = null;
+        
         super.testCaseTearDown();
     }
 }

@@ -17,32 +17,28 @@ import com.hazelcast.core.HazelcastInstance;
  */
 public class HazelcastUtils
 {
-    private static String clusterName;
-    private static String instanceName;
-    
     private HazelcastUtils(){
     }
     
     public static HazelcastInstance createTestInstance()
     {
-        clusterName = "TestIMDG";
-        instanceName = "TestCaching";
-        
-        return Hazelcast.newHazelcastInstance(hazelCastConfigBean());
+        return Hazelcast.newHazelcastInstance(hazelCastConfigBean("localhost", 5701, "TestIMDG", "TestCaching"));
     }
     
     public static HazelcastInstance createTestInstance(String cluster, String instance)
-    {
-        clusterName = cluster;
-        instanceName = instance;
-        
-        return Hazelcast.newHazelcastInstance(hazelCastConfigBean());
+    {   
+        return Hazelcast.newHazelcastInstance(hazelCastConfigBean("localhost", 5701, cluster, instance));
+    }
+    
+    public static HazelcastInstance createTestInstance(String host, int port, String cluster, String instance)
+    {   
+        return Hazelcast.newHazelcastInstance(hazelCastConfigBean(host, port, cluster, instance));
     }
 
 //  PRIVATE METHODS
     
     @SuppressWarnings("deprecation")
-    private static com.hazelcast.config.Config hazelCastConfigBean()
+    private static com.hazelcast.config.Config hazelCastConfigBean(String host, int port, String clusterName, String instanceName)
     {
         com.hazelcast.config.Config config = new com.hazelcast.config.Config();
         
@@ -50,16 +46,16 @@ public class HazelcastUtils
         config.setInstanceName(instanceName);
         
         NetworkConfig network = config.getNetworkConfig();
-        network.setPort(5701).setPortCount(10);
+        network.setPort(port).setPortCount(10);
         network.setPortAutoIncrement(true);
         
         JoinConfig join = network.getJoin();
         join.getMulticastConfig().setEnabled(false);
-        join.getAwsConfig().setEnabled(false);;
+        join.getAwsConfig().setEnabled(false);
         
         TcpIpConfig tcp = join.getTcpIpConfig();
         tcp.setEnabled(true);
-        tcp.addMember("localhost");
+        tcp.addMember(host);
         
         return config; 
     }

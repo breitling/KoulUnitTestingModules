@@ -3,25 +3,25 @@ package org.breitling.dragon.framework.base;
 
 public abstract class TestBase
 {
-//    @BeforeClass
+//  @BeforeClass
     public static void testSetup()
     {
         // STUB FOR ALL TESTS
     }
     
-//    @Before
+//  @Before
     public void testCaseSetup()
     {        
         // STUB FOR ALL TESTS
     }
     
-//    @After
+//  @After
     public void testCaseTearDown()
     {        
         // STUB FOR ALL TESTS
     }
     
-//    @AfterClass
+//  @AfterClass
     public static void testTearDown()
     {
         // STUB FOR ALL TESTS
